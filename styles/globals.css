@@ -30,3 +30,9 @@ body {
   border-radius: 10px;
   box-shadow: inset 7px 10px 12px #f0f0f0;
 }
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}

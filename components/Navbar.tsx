@@ -19,11 +19,11 @@ const Navbar = () => {
           </button>
         </form>
       </div>
-      <Link href="#">
+      {/* <Link href="#">
         <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-20 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">
           Signin
         </button>
-      </Link>
+      </Link> */}
     </nav>
   );
 };
