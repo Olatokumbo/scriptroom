@@ -2,7 +2,7 @@ import { MenuAlt3Icon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 const Navbar = () => {
   return (
-    <nav className="w-full p-3 flex flex-col justify-between sm:flex-row border-b-[1px]">
+    <nav className="w-full p-3 flex flex-col justify-between sm:flex-row border-b-2 border-gray-100">
       <div className="flex items-start flex-col sm:flex-row sm:items-center w-full">
         <div className="flex items-center justify-between w-full sm:w-auto md:w-auto">
           <img src="/logo.png" className="h-10 mr-5 w-auto" alt="headerImages" />
