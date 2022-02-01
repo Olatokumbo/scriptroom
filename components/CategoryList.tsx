@@ -3,7 +3,7 @@ const CategoryList = ({ id }: { id: string }) => {
   return (
     <div className="py-2 flex overflow-auto w-full whitespace-nowrap border-b-2 border-gray-100 border-solid">
       <div className="m-auto flex">
-        <Link href="/categories/full-length-movies">
+        <Link href="/categories/full-length-movies" passHref>
           <h5
             className={
               "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
@@ -13,7 +13,7 @@ const CategoryList = ({ id }: { id: string }) => {
             Full Length Movies
           </h5>
         </Link>
-        <Link href="/categories/stage-plays">
+        <Link href="/categories/stage-plays" passHref>
           <h5
             className={
               "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
@@ -23,7 +23,7 @@ const CategoryList = ({ id }: { id: string }) => {
             Stage Plays
           </h5>
         </Link>
-        <Link href="/categories/dramas">
+        <Link href="/categories/dramas" passHref>
           <h5
             className={
               "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
@@ -33,7 +33,7 @@ const CategoryList = ({ id }: { id: string }) => {
             Dramas
           </h5>
         </Link>
-        <Link href="/categories/musicals">
+        <Link href="/categories/musicals" passHref>
           <h5
             className={
               "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
@@ -43,7 +43,7 @@ const CategoryList = ({ id }: { id: string }) => {
             Musicals
           </h5>
         </Link>
-        <Link href="/categories/spoken-word">
+        <Link href="/categories/spoken-word" passHref>
           <h5
             className={
               "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
@@ -53,7 +53,7 @@ const CategoryList = ({ id }: { id: string }) => {
             Spoken Word
           </h5>
         </Link>
-        <Link href="/categories/short-films">
+        <Link href="/categories/short-films" passHref>
           <h5
             className={
               "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
@@ -63,7 +63,7 @@ const CategoryList = ({ id }: { id: string }) => {
             Short Films
           </h5>
         </Link>
-        <Link href="/categories/skits">
+        <Link href="/categories/skits" passHref>
           <h5
             className={
               "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +

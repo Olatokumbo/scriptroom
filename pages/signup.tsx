@@ -37,8 +37,8 @@ const Signup: NextPage = () => {
               />
             </Link>
             <h5 className="text-sm">
-              Have an Account?{" "}
-              <Link href="/signin">
+              Have an Account?
+              <Link href="/signin" passHref>
                 <span className="text-base text-blue-700 font-semibold">
                   Signin
                 </span>
@@ -53,7 +53,7 @@ const Signup: NextPage = () => {
               //   onClick={signinGoogle}
               className=" my-1 flex items-center justify-center w-full text-gray-600  text-sm border-2 rounded-md py-3 focus:outline-none hover:bg-gray-100"
             >
-              <img className="h-5 mx-3" src="/google.svg" /> Continue with
+              <img className="h-5 mx-3" src="/google.svg" alt="google" /> Continue with
               Google
             </button>
             <h5 className="text-gray-500 my-3">or</h5>
