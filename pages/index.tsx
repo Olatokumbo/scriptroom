@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import CategoryList from "../components/CategoryList";
 import Navbar from "../components/Navbar";
 
@@ -26,9 +27,11 @@ const Home: NextPage = () => {
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
           </h1>
-          <button className="my-10 px-5 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white font-normal uppercase focus:outline-none">
-            Get Started
-          </button>
+          <Link href="/signin">
+            <button className="my-10 px-5 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white font-normal uppercase focus:outline-none">
+              Get Started
+            </button>
+          </Link>
         </div>
         <div className="flex-1 hidden md:block">
           <img
