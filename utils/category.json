@@ -2,36 +2,43 @@
   {
     "id": "full-length-movies",
     "title": "Full length Movies",
-    "photoURL": "/images/categories/movies.jpg"
+    "photoURL": "/images/categories/movies.jpg",
+    "color": "bg-amber-400"
   },
   {
     "id": "stage-plays",
     "title": "Stage Plays",
-    "photoURL": "/images/categories/stage-plays.jpg"
+    "photoURL": "/images/categories/stage-plays.jpg",
+    "color": "bg-orange-600"
   },
   {
     "id": "dramas",
     "title": "Dramas",
-    "photoURL": "/images/categories/dramas.jpg"
+    "photoURL": "/images/categories/dramas.jpg",
+    "color": "bg-emerald-500"
   },
   {
     "id": "musicals",
     "title": "Musicals",
-    "photoURL": "/images/categories/musicals.jpg"
+    "photoURL": "/images/categories/musicals.jpg",
+    "color": "bg-blue-500"
   },
   {
     "id": "spoken-word",
     "title": "Spoken Word",
-    "photoURL": "/images/categories/spoken-word.jpg"
+    "photoURL": "/images/categories/spoken-word.jpg",
+    "color": "bg-indigo-500"
   },
   {
     "id": "short-films",
     "title": "Short Films",
-    "photoURL": "/images/categories/short-films.jpg"
+    "photoURL": "/images/categories/short-films.jpg",
+    "color": "bg-gray-600"
   },
   {
     "id": "skits",
     "title": "Skits",
-    "photoURL": "/images/categories/skits.jpg"
+    "photoURL": "/images/categories/skits.jpg",
+    "color": "bg-rose-600"
   }
 ]

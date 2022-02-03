@@ -5,7 +5,13 @@ const Navbar = () => {
     <nav className="w-full p-3 flex flex-col justify-between sm:flex-row border-b-2 border-gray-100">
       <div className="flex items-start flex-col sm:flex-row sm:items-center w-full">
         <div className="flex items-center justify-between w-full sm:w-auto md:w-auto">
-          <img src="/logo.png" className="h-10 mr-5 w-auto" alt="headerImages" />
+          <Link href="/" passHref>
+            <img
+              src="/logo.png"
+              className="h-10 mr-5 w-auto hover:cursor-pointer"
+              alt="headerImages"
+            />
+          </Link>
           <MenuAlt3Icon className="h-6 w-6 lg:hidden md:hidden sm:hidden cursor-pointer block" />
         </div>
         <form className="flex w-full sm:w-60 h-11 my-3 sm:my-0 bg-neutral-200 justify-between p-1 rounded-3xl">

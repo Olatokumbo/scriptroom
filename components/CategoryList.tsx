@@ -1,5 +1,5 @@
 import Link from "next/link";
-const CategoryList = ({ id }: { id: string | undefined }) => {
+const CategoryList = ({ id }: { id?: string | undefined }) => {
   return (
     <div className="py-2 flex overflow-auto w-full whitespace-nowrap border-b-2 border-gray-100 border-solid">
       <div className="m-auto flex">

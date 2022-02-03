@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <div className="w-full">
       <Navbar />
-      <CategoryList id="full-length-movies" />
+      <CategoryList />
       <div className="flex flex-1">
         <div className="p-16 px-10 flex-1">
           <img

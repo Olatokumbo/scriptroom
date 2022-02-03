@@ -15,7 +15,7 @@ interface IParams extends ParsedUrlQuery {
 const Category = ({
   category,
 }: {
-  category: { title: string; photoURL: string };
+  category: { title: string; photoURL: string, color: string };
 }) => {
   const router = useRouter();
   const { id } = router.query;
@@ -27,29 +27,32 @@ const Category = ({
       </Head>
       <Navbar />
       <CategoryList id={id as string} />
-      <div className="w-full relative overflow-hidden mb-9">
-        <div className="opacity-50 bg-gray-900 absolute left-0 right-0 top-0 bottom-0 rounded"></div>
-        <div className="absolute p-10 flex h-full w-full">
-          <div className="flex-1 flex flex-col justify-center items-start">
-            <h1 className="text-white text-3xl font-semibold">
-              {category.title}
-            </h1>
+      <div className="flex p-3">
+        <div className={"mr-2 rounded-md flex-1 "+ category.color}></div>
+        <div className="w-full relative overflow-hidden flex-5 rounded-md">
+          <div className="opacity-50 bg-gray-900 absolute left-0 right-0 top-0 bottom-0 rounded-md"></div>
+          <div className="absolute p-10 flex h-full w-full">
+            <div className="flex-1 flex flex-col justify-center items-start">
+              <h1 className="text-white text-3xl font-semibold">
+                {category.title}
+              </h1>
+            </div>
+            <div className="flex-none md:flex-1"></div>
           </div>
-          <div className="flex-none md:flex-1"></div>
-        </div>
-        <div className="flex-1 relative -z-1 h-40">
-          <Image
-            src={category.photoURL}
-            className="object-cover"
-            layout="fill"
-            loading="eager"
-            priority
-          />
+          <div className="flex-1 relative -z-1 h-40">
+            <Image
+              src={category.photoURL}
+              className="object-cover"
+              layout="fill"
+              loading="eager"
+              priority
+            />
+          </div>
         </div>
       </div>
-      <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
+      {/* <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
         <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5"></div>
-      </div>
+      </div> */}
     </>
   );
 };
