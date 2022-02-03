@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import Navbar from "../../components/Navbar";
+import ScriptCard from "../../components/ScriptCard";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -52,9 +53,19 @@ const Category = ({
           </div>
         </div>
       </div>
-      {/* <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
-        <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5"></div>
-      </div> */}
+      <div className="p-2">
+        <h1 className="ml-2 font-bold text-lg text-slate-600">TOP RATED</h1>
+        <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
+          <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5">
+            <ScriptCard />
+            <ScriptCard />
+            <ScriptCard />
+            <ScriptCard />
+            <ScriptCard />
+            <ScriptCard />
+          </div>
+        </div>
+      </div>
     </>
   );
 };
