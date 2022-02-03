@@ -15,7 +15,7 @@ interface IParams extends ParsedUrlQuery {
 const Category = ({
   category,
 }: {
-  category: { title: string; photoURL: string, color: string };
+  category: { title: string; photoURL: string; color: string };
 }) => {
   const router = useRouter();
   const { id } = router.query;
@@ -28,7 +28,9 @@ const Category = ({
       <Navbar />
       <CategoryList id={id as string} />
       <div className="flex p-3">
-        <div className={"mr-2 rounded-md flex-1 "+ category.color}></div>
+        <div
+          className={"mr-2 rounded-md hidden sm:block flex-1 " + category.color}
+        ></div>
         <div className="w-full relative overflow-hidden flex-5 rounded-md">
           <div className="opacity-50 bg-gray-900 absolute left-0 right-0 top-0 bottom-0 rounded-md"></div>
           <div className="absolute p-10 flex h-full w-full">
