@@ -15,6 +15,9 @@ module.exports = {
       3: "3 3 0%",
       4: "4 4 0%",
     },
+    zIndex: {
+      "-1": -1,
+    },
     extend: {},
   },
   plugins: [],

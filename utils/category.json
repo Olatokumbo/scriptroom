@@ -1,0 +1,37 @@
+[
+  {
+    "id": "full-length-movies",
+    "title": "Full length Movies",
+    "photoURL": "/images/categories/movies.jpg"
+  },
+  {
+    "id": "stage-plays",
+    "title": "Stage Plays",
+    "photoURL": "/images/categories/stage-plays.jpg"
+  },
+  {
+    "id": "dramas",
+    "title": "Dramas",
+    "photoURL": "/images/categories/dramas.jpg"
+  },
+  {
+    "id": "musicals",
+    "title": "Musicals",
+    "photoURL": "/images/categories/musicals.jpg"
+  },
+  {
+    "id": "spoken-word",
+    "title": "Spoken Word",
+    "photoURL": "/images/categories/spoken-word.jpg"
+  },
+  {
+    "id": "short-films",
+    "title": "Short Films",
+    "photoURL": "/images/categories/short-films.jpg"
+  },
+  {
+    "id": "skits",
+    "title": "Skits",
+    "photoURL": "/images/categories/skits.jpg"
+  }
+]
