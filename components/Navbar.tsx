@@ -7,7 +7,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between w-full sm:w-auto md:w-auto">
           <Link href="/" passHref>
             <img
-              src="/logo.png"
+              src="/logo-sm.png"
               className="h-10 mr-5 w-auto hover:cursor-pointer"
               alt="headerImages"
             />

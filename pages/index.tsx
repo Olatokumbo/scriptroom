@@ -1,14 +1,15 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import CategoryList from "../components/CategoryList";
+import Footer from "../components/Footer";
+import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 
 const Home: NextPage = () => {
   return (
-    <div className="w-full">
-      <Navbar />
+    <Layout>
       <CategoryList />
-      <div className="flex flex-1">
+      <div className="flex flex-1 min-h-screen">
         <div className="p-16 px-10 flex-1">
           <img
             src="/logo.png"
@@ -41,7 +42,7 @@ const Home: NextPage = () => {
           />
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
