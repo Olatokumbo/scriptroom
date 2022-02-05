@@ -12,10 +12,10 @@ const Home: NextPage = () => {
       <CategoryList />
       <div className="max-w-[90rem] m-auto">
         <div className="flex flex-1">
-          <div className="p-16 px-10 flex-1">
+          <div className="pt-16 px-6 md:px-10 pb-10 md:pb-24 flex-1">
             <img
               src="/logo.png"
-              className="h-32 mr-5 w-auto"
+              className="h-auto mr-0 md:mr-5 w-72"
               alt="headerImages"
             />
             <h1 className="my-4 text-lg">
