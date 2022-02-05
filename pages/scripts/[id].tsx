@@ -27,7 +27,7 @@ const ScriptInfo: NextPage = () => {
       </Head>
       <Layout>
         <CategoryList />
-        <div className="flex p-3 flex-col md:flex-row">
+        <div className="flex p-3 flex-col md:flex-row max-w-6xl m-auto">
           <div className="flex-3 bg-neutral-50 p-3 md:p-8 m-0 md:m-5  rounded-md">
             <img
               className="h-32 object-cover w-full rounded-t-md"
