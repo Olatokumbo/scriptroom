@@ -6,7 +6,7 @@ const CategoryList = ({ id }: { id?: string | undefined }) => {
         <Link href="/categories/full-length-movies" passHref>
           <h5
             className={
-              "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
+              "text-gray-700 mx-6 cursor-pointer hover:text-gray-500" +
               (id === "full-length-movies" && " font-semibold")
             }
           >
@@ -16,27 +16,17 @@ const CategoryList = ({ id }: { id?: string | undefined }) => {
         <Link href="/categories/stage-plays" passHref>
           <h5
             className={
-              "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
+              "text-gray-700 mx-6 cursor-pointer hover:text-gray-500" +
               (id === "stage-plays" && " font-semibold")
             }
           >
             Stage Plays
           </h5>
         </Link>
-        <Link href="/categories/dramas" passHref>
-          <h5
-            className={
-              "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
-              (id === "dramas" && " font-semibold")
-            }
-          >
-            Dramas
-          </h5>
-        </Link>
         <Link href="/categories/musicals" passHref>
           <h5
             className={
-              "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
+              "text-gray-700 mx-6 cursor-pointer hover:text-gray-500" +
               (id === "musicals" && " font-semibold")
             }
           >
@@ -46,7 +36,7 @@ const CategoryList = ({ id }: { id?: string | undefined }) => {
         <Link href="/categories/spoken-word" passHref>
           <h5
             className={
-              "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
+              "text-gray-700 mx-6 cursor-pointer hover:text-gray-500" +
               (id === "spoken-word" && " font-semibold")
             }
           >
@@ -56,7 +46,7 @@ const CategoryList = ({ id }: { id?: string | undefined }) => {
         <Link href="/categories/short-films" passHref>
           <h5
             className={
-              "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
+              "text-gray-700 mx-6 cursor-pointer hover:text-gray-500" +
               (id === "short-films" && " font-semibold")
             }
           >
@@ -66,7 +56,7 @@ const CategoryList = ({ id }: { id?: string | undefined }) => {
         <Link href="/categories/skits" passHref>
           <h5
             className={
-              "text-gray-700 mx-4 cursor-pointer hover:text-gray-500" +
+              "text-gray-700 mx-6 cursor-pointer hover:text-gray-500" +
               (id === "skits" && " font-semibold")
             }
           >

@@ -12,12 +12,6 @@
     "color": "bg-orange-600"
   },
   {
-    "id": "dramas",
-    "title": "Dramas",
-    "photoURL": "/images/categories/dramas.jpg",
-    "color": "bg-emerald-500"
-  },
-  {
     "id": "musicals",
     "title": "Musicals",
     "photoURL": "/images/categories/musicals.jpg",

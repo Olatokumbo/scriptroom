@@ -24,7 +24,7 @@ const Category = ({
   return (
     <>
       <Head>
-        <title>{category.title} | Cloak.io</title>
+        <title>{category.title} | ScriptRoom</title>
       </Head>
       <Navbar />
       <CategoryList id={id as string} />
