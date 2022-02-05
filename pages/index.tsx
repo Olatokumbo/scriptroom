@@ -38,8 +38,8 @@ const Home: NextPage = () => {
           </div>
           <div className="flex-1 hidden md:block">
             <img
-              src="/images/wp.jpg"
-              className="h-full w-full object-cover rounded-tl-[60px] lg:rounded-tl-[80px]"
+              src="/images/pattern2.jpg"
+              className="h-full w-full object-cover"
               alt="headerImages"
             />
           </div>

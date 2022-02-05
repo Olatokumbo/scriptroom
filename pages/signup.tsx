@@ -22,7 +22,7 @@ const Signup: NextPage = () => {
       <div className="w-full flex flex-row-reverse min-h-screen">
         <div className="flex-1 relative hidden sm:block">
           <Image
-            src="/images/pattern2.jpg"
+            src="/images/wp2.jpg"
             className="object-cover w-full h-full"
             layout="fill"
           />
