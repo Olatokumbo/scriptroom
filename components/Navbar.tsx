@@ -1,8 +1,13 @@
 import { MenuAlt3Icon, SearchIcon } from "@heroicons/react/outline";
+import { Avatar } from "@material-ui/core";
 import Link from "next/link";
+import { useRecoilValue } from "recoil";
+import { userState } from "../store/user";
 const Navbar = () => {
+  const user = useRecoilValue(userState);
+  console.log(user);
   return (
-    <nav className="w-full p-3 flex flex-col justify-between sm:flex-row border-b-2 border-gray-100">
+    <nav className="w-full py-3 px-4 flex flex-col justify-between items-center sm:flex-row border-b-2 border-gray-100">
       <div className="flex items-start flex-col sm:flex-row sm:items-center w-full">
         <div className="flex items-center justify-between w-full sm:w-auto md:w-auto">
           <Link href="/" passHref>
@@ -25,11 +30,15 @@ const Navbar = () => {
           </button>
         </form>
       </div>
-      {/* <Link href="#">
-        <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-20 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">
-          Signin
-        </button>
-      </Link> */}
+      {user?.auth ? (
+        <Avatar src={user.photoURL as string} />
+      ) : (
+        <Link href="/signin">
+          <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-20 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">
+            Signin
+          </button>
+        </Link>
+      )}
     </nav>
   );
 };

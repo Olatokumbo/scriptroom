@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
+import { signinGoogle } from "../firebase/auth";
 // import { signinGoogle, signinFacebook, signupEaP } from "../redux/actions/auth";
 // import PublicRoute from "../hoc/PublicRoute";
 // import { CircularProgress } from "@material-ui/core";
@@ -50,7 +51,7 @@ const Signup: NextPage = () => {
               Create Account
             </h1>
             <button
-              //   onClick={signinGoogle}
+                onClick={signinGoogle}
               className=" my-1 flex items-center justify-center w-full text-gray-600  text-sm border-2 rounded-md py-3 focus:outline-none hover:bg-gray-100"
             >
               <img className="h-5 mx-3" src="/google.svg" alt="google" /> Continue with
