@@ -6,8 +6,8 @@ import { userState } from "../store/user";
 const Navbar = () => {
   const user = useRecoilValue(userState);
   return (
-    <nav className="border-b-2 border-gray-100 w-full m-auto max-w-[90rem]">
-      <div className="py-3 px-5 flex flex-col justify-between items-center sm:flex-row">
+    <nav className="border-b-2 border-gray-100 w-full">
+      <div className="py-3 px-5 flex flex-col justify-between items-center sm:flex-row max-w-[90rem] m-auto">
       <div className="flex items-start flex-col sm:flex-row sm:items-center w-full">
         <div className="flex items-center justify-between w-full sm:w-auto md:w-auto">
           <Link href="/" passHref>
