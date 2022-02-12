@@ -5,18 +5,9 @@ import Layout from "../../components/Layout";
 import { NextPage } from "next";
 import ScriptCard from "../../components/ScriptCard";
 import { Avatar, makeStyles, Theme } from "@material-ui/core";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  avatar: {
-    // marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 80,
-    height: 80,
-  },
-}));
+import Link from "next/link";
 
 const ScriptInfo: NextPage = () => {
-  const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
 
@@ -71,14 +62,15 @@ const ScriptInfo: NextPage = () => {
           </div>
           <div className="flex-2 bg-neutral-50 my-5 rounded-md p-5 h-fit">
             <h1 className="font-semibold text-[#36395A]">About the Author</h1>
-            <div className="flex flex-col items-center my-2">
-              <Avatar
-                alt="Remy Sharp"
-                className={classes.avatar}
-                src="/images/profile.jpg"
-              />
-              <h1 className="font-medium">david0</h1>
-            </div>
+            <Link href="/profile/123">
+              <div className="flex flex-col items-center my-2">
+                <img
+                  src="/images/profile.jpg"
+                  className="w-20 h-20 object-cover rounded-full"
+                />
+                <h1 className="font-medium">david0</h1>
+              </div>
+            </Link>
             <p className="text-gray-600 text-sm my-1">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
