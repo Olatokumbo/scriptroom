@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import { convertToRaw, EditorState } from "draft-js";
 import { useState } from "react";
 
 import {
@@ -13,12 +13,25 @@ import {
   TextField,
 } from "@material-ui/core";
 import ScriptEditor from "../../components/Editor";
+import { functions } from "../../firebase/config";
 
 const AddScript: NextPage = () => {
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [genre, setGenre] = useState("full-length-movies");
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  console.log(convertToRaw(editorState.getCurrentContent()));
+  console.log(convertToRaw(editorState.getCurrentContent()).blocks);
+
+  const save = () => {
+    const data = functions.httpsCallable("getPdfUrl");
+    data({ title, author, genre })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((e) => console.log(e.message));
+  };
 
   return (
     <>
@@ -32,6 +45,8 @@ const AddScript: NextPage = () => {
             size="medium"
             variant="outlined"
             label="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             margin="normal"
             fullWidth
           />
@@ -41,6 +56,8 @@ const AddScript: NextPage = () => {
             variant="outlined"
             label="Author"
             margin="dense"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
             fullWidth
           />
           <FormControl margin="dense">
@@ -48,10 +65,10 @@ const AddScript: NextPage = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              // value=
+              value={genre}
               defaultValue="full-length-movies"
               label="Genre"
-              // onChange={handleChange}
+              onChange={(e) => setGenre(e.target.value as string)}
             >
               <MenuItem value={"full-length-movies"}>
                 Full length Movies
@@ -67,7 +84,19 @@ const AddScript: NextPage = () => {
             editorState={editorState}
             setEditorState={setEditorState}
           />
-          <Button variant="contained" color="primary">
+          <Button
+            disabled={
+              !(
+                title &&
+                author &&
+                genre &&
+                editorState.getCurrentContent().hasText()
+              )
+            }
+            onClick={save}
+            variant="contained"
+            color="primary"
+          >
             Save
           </Button>
         </div>

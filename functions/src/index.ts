@@ -52,26 +52,27 @@ const getFileRef = async () => {
   return admin.storage().bucket().file(`scripts/script-${123}.pdf`);
 };
 
-export const getPdfUrl = functions.https.onRequest(
-  async (request, response) => {
-    try {
-      const file = await getFileRef();
+export const getPdfUrl = functions.region("us-central1").https.onCall(async (data, context) => {
+  // try {
 
-      const [exists] = await file.exists();
-      if (exists) {
-        const url = await getSignedUrl(file);
-        response.send({ url });
-      }
+  console.log(data);
+  functions.logger.info(data);
+  const file = await getFileRef();
 
-      await createAndUploadPdf(file);
-      const url = await getSignedUrl(file);
-      response.send({ url });
-    } catch (error) {
-      console.log(error);
-      functions.logger.error(error);
-    }
+  const [exists] = await file.exists();
+  if (exists) {
+    const url = await getSignedUrl(file);
+    return { url };
   }
-);
+
+  await createAndUploadPdf(file);
+  const url = await getSignedUrl(file);
+  return { url };
+  // } catch (error) {
+  //   console.log(error);
+  //   functions.logger.error(error);
+  // }
+});
 
 export const newUser = functions.auth.user().onCreate((user) => {
   return addUser(user);
