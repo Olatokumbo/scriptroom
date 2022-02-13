@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+import "firebase/compat/functions";
 import "firebase/compat/auth";
 import "firebase/compat/analytics";
 
@@ -31,6 +32,7 @@ facebookProvider.setCustomParameters({ auth_type: "reauthenticate" });
 const firestore = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
+const functions = firebase.functions()
 
 // if (process.env.NODE_ENV === "production") {
 //   firebase.analytics();
@@ -39,6 +41,7 @@ const auth = firebase.auth();
 export {
   firebase as default,
   firestore,
+  functions,
   auth,
   googleProvider,
   facebookProvider,

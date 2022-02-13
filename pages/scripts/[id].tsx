@@ -6,10 +6,20 @@ import { NextPage } from "next";
 import ScriptCard from "../../components/ScriptCard";
 import { Avatar, makeStyles, Theme } from "@material-ui/core";
 import Link from "next/link";
+// import { functions } from "../../firebase/config";
 
 const ScriptInfo: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
+
+  const viewPdf = () => {
+    // const data = functions.httpsCallable("getPdfUrl");
+    // data()
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((e) => console.log(e.message));
+  };
 
   return (
     <>
@@ -28,7 +38,10 @@ const ScriptInfo: NextPage = () => {
               <h1 className="font-bold text-2xl text-[#36395A]">
                 The Beginning of a New Thing
               </h1>
-              <button className="px-6 py-2 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none">
+              <button
+                onClick={viewPdf}
+                className="px-6 py-2 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
+              >
                 View
               </button>
             </div>
