@@ -5,6 +5,7 @@ type AtomObject = {
   photoURL: null | string;
   uid: null | string;
   auth: boolean;
+  loading: boolean;
 };
 
 export const userState = atom<AtomObject>({
@@ -14,5 +15,6 @@ export const userState = atom<AtomObject>({
     photoURL: null,
     uid: null,
     auth: false,
+    loading: true,
   },
 });

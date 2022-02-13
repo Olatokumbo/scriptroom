@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 import ScriptCard from "../components/ScriptCard";
+import PublicRoute from "../hoc/PublicRoute";
 
 const Home: NextPage = () => {
   return (
@@ -62,4 +63,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default PublicRoute(Home);

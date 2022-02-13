@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import { EditorState } from "draft-js";
+import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { useState } from "react";
 
 import {
@@ -18,7 +18,8 @@ const AddScript: NextPage = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  
+  console.log(convertToRaw(editorState.getCurrentContent()));
+
   return (
     <>
       <Head>

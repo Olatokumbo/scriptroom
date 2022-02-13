@@ -17,9 +17,20 @@ const Auth: React.FC<IAuth> = ({ children }) => {
           photoURL: user.photoURL,
           uid: user.uid,
           auth: true,
+          loading: false,
         });
         console.log("Logged in");
-      } else console.log("Logged out");
+      } else {
+        setUser({
+          email: null,
+          photoURL: null,
+          uid: null,
+          auth: false,
+          loading: false,
+        });
+
+        console.log("Logged out");
+      }
     });
   }, []);
   return <div>{children}</div>;

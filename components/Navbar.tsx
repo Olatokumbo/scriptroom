@@ -10,7 +10,7 @@ const Navbar = () => {
       <div className="py-3 px-5 flex flex-col justify-between items-center sm:flex-row max-w-[90rem] m-auto">
       <div className="flex items-start flex-col sm:flex-row sm:items-center w-full">
         <div className="flex items-center justify-between w-full sm:w-auto md:w-auto">
-          <Link href="/" passHref>
+          <Link href={user.auth ? "/categories/full-length-movies" : "/"} passHref>
             <img
               src="/logo-sm.png"
               className="h-10 mr-5 w-auto hover:cursor-pointer"

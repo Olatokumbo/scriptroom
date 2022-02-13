@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
 import { signinGoogle } from "../firebase/auth";
+import PublicRoute from "../hoc/PublicRoute";
 // import { signinEaP, signinFacebook, signinGoogle } from "../redux/actions/auth";
 // import { CircularProgress } from "@material-ui/core";
 // import PublicRoute from "../hoc/PublicRoute";
@@ -106,5 +107,5 @@ const Signin: NextPage = () => {
   );
 };
 
-export default Signin;
-// export default PublicRoute(Signin);
+// export default Signin;
+export default PublicRoute(Signin);

@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../../components/Layout";
 import ScriptCard from "../../components/ScriptCard";
+import PrivateRoute from "../../hoc/PrivateRoute";
 
 const Profile: NextPage = () => {
   return (
@@ -52,4 +53,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+export default PrivateRoute(Profile);
