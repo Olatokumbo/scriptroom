@@ -6,8 +6,12 @@ import * as PdfKit from "pdfkit";
 import { File } from "@google-cloud/storage";
 import * as serviceAccount from "../script-room-firebase-adminsdk-u2n71-8f5cd370f1.json";
 
+import * as cors from "cors";
+cors({ origin: true });
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+  storageBucket: "script-room.appspot.com",
 });
 
 // // Start writing Firebase Functions
@@ -25,7 +29,7 @@ const getSignedUrl = (file: File) =>
     expires: Date.now() + 24 * 60 * 60 * 1000,
   });
 
-const createAndUploadPdf = (file: File) =>
+const createAndUploadPdf = (file: File, data: any) =>
   new Promise<void>((resolve, reject) => {
     const doc = new PdfKit();
     const writeStream = file.createWriteStream({
@@ -38,12 +42,15 @@ const createAndUploadPdf = (file: File) =>
     doc.pipe(writeStream);
 
     doc
-      .fontSize(24)
+      .fontSize(22)
       .font("Courier")
-      .text("Script")
+      .text(data.title)
       .fontSize(16)
-      .moveDown(2)
-      .text("This is your script");
+      .moveDown(1)
+      .text(data.author)
+      .moveDown(1);
+
+    data.body.map((t: any) => doc.moveDown(0.8).fontSize(17).font("Courier").text(t));
 
     doc.end();
   });
@@ -52,26 +59,25 @@ const getFileRef = async () => {
   return admin.storage().bucket().file(`scripts/script-${123}.pdf`);
 };
 
-export const getPdfUrl = functions.region("us-central1").https.onCall(async (data, context) => {
-  // try {
+export const getPdf = functions.https.onCall(async (data, context) => {
+  try {
+    console.log(data);
+    functions.logger.info(data);
+    const file = await getFileRef();
 
-  console.log(data);
-  functions.logger.info(data);
-  const file = await getFileRef();
+    const [exists] = await file.exists();
+    if (exists) {
+      const url = await getSignedUrl(file);
+      return { url };
+    }
 
-  const [exists] = await file.exists();
-  if (exists) {
+    await createAndUploadPdf(file, data);
     const url = await getSignedUrl(file);
     return { url };
+  } catch (error) {
+    console.log(error);
+    functions.logger.error(error);
   }
-
-  await createAndUploadPdf(file);
-  const url = await getSignedUrl(file);
-  return { url };
-  // } catch (error) {
-  //   console.log(error);
-  //   functions.logger.error(error);
-  // }
 });
 
 export const newUser = functions.auth.user().onCreate((user) => {

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "noImplicitReturns": true,
-    "resolveJsonModule": true,
+    "noImplicitReturns": false,
     "noUnusedLocals": true,
+    "resolveJsonModule": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,

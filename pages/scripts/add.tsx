@@ -22,11 +22,14 @@ const AddScript: NextPage = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  console.log(convertToRaw(editorState.getCurrentContent()).blocks);
+  // console.log(convertToRaw(editorState.getCurrentContent()).blocks);
 
   const save = () => {
-    const data = functions.httpsCallable("getPdfUrl");
-    data({ title, author, genre })
+    const body = convertToRaw(editorState.getCurrentContent()).blocks.map(
+      (data) => data.text
+    );
+    const data = functions.httpsCallable("getPdf");
+    data({ title, author, genre, body })
       .then((data) => {
         console.log(data);
       })
