@@ -9,6 +9,8 @@ import { ParsedUrlQuery } from "querystring";
 import Navbar from "../../components/Navbar";
 import ScriptCard from "../../components/ScriptCard";
 import Layout from "../../components/Layout";
+import useScripts from "../../hooks/useScripts";
+import { scriptsByCategory } from "../../firebase/scripts";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -21,6 +23,10 @@ const Category = ({
 }) => {
   const router = useRouter();
   const { id } = router.query;
+
+  const { loading, scripts } = useScripts(scriptsByCategory, id as string);
+
+  console.log(scripts, loading);
 
   return (
     <>
@@ -61,12 +67,11 @@ const Category = ({
             <h1 className="ml-2 font-bold text-lg text-slate-600">TOP RATED</h1>
             <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
               <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5">
-                <ScriptCard />
-                <ScriptCard />
-                <ScriptCard />
-                <ScriptCard />
-                <ScriptCard />
-                <ScriptCard />
+                {loading
+                  ? "Loading...."
+                  : scripts.map((script, index) => (
+                      <ScriptCard key={index} script={script} />
+                    ))}
               </div>
             </div>
           </div>
