@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import Banner from "../components/Banner";
 import CategoryList from "../components/CategoryList";
 import Footer from "../components/Footer";
 import Layout from "../components/Layout";
@@ -44,6 +45,9 @@ const Home: NextPage = () => {
               alt="headerImages"
             />
           </div>
+        </div>
+        <div className="w-full flex justify-center my-5">
+          <Banner />
         </div>
       </div>
     </Layout>
