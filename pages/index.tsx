@@ -2,10 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import Banner from "../components/Banner";
 import CategoryList from "../components/CategoryList";
-import Footer from "../components/Footer";
 import Layout from "../components/Layout";
-import Navbar from "../components/Navbar";
-import ScriptCard from "../components/ScriptCard";
 import PublicRoute from "../hoc/PublicRoute";
 
 const Home: NextPage = () => {
@@ -41,7 +38,7 @@ const Home: NextPage = () => {
           <div className="flex-1 hidden md:block">
             <img
               src="/images/pattern2.jpg"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover rounded-bl-2xl"
               alt="headerImages"
             />
           </div>

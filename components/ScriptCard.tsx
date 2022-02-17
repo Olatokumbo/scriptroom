@@ -18,7 +18,7 @@ const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
         />
         <div className="w-full h-2  bg-neutral-800"></div>
         <div className="bg-[#36395A] p-3 rounded-b-md shadow-gray-700">
-          <h1 className="font-bold text-sm text-neutral-100">
+          <h1 className="font-bold text-md text-neutral-100">
             {script?.title}
           </h1>
           <h1 className="text-sm font-light my-2 text-neutral-200 leading-4">
@@ -37,7 +37,7 @@ const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
             </div>
             <div>
               <h1 className="text-white text-xs text-right">12/12/2021</h1>
-              <h1 className="text-white text-sm font-bold">
+              <h1 className="text-white text-xs font-mono">
                 {getCategory(script.category)}
               </h1>
             </div>

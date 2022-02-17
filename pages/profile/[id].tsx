@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import CategoryList from "../../components/CategoryList";
 import Layout from "../../components/Layout";
 import ScriptCard from "../../components/ScriptCard";
 import PrivateRoute from "../../hoc/PrivateRoute";
@@ -11,6 +12,7 @@ const Profile: NextPage = () => {
         <title> Script | ScriptRoom</title>
       </Head>
       <Layout>
+        <CategoryList />
         <div className="flex p-3 flex-col md:flex-row m-auto max-w-[90rem]">
           <div className="flex-3 p-0 md:p-10">
             <div className="w-full relative flex justify-center md:justify-start mb-32">
