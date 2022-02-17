@@ -29,7 +29,7 @@ const Profile: NextPage = () => {
               </div>
             </div>
             <div>
-              <div className="p-0">
+              {/* <div className="p-0">
                 <h1 className="ml-2 font-bold text-lg text-slate-600">
                   MY SCRIPTS
                 </h1>
@@ -43,7 +43,7 @@ const Profile: NextPage = () => {
                     <ScriptCard />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="flex-1  h-screen">{/* <h1>QWERTYUI</h1> */}</div>
@@ -53,4 +53,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default PrivateRoute(Profile);
+export default Profile;
