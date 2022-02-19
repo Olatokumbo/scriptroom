@@ -89,10 +89,10 @@ export const createScript = functions.firestore
 
 export const deleteScript = functions.firestore
   .document("scripts/{scriptId}")
-  .onDelete(async (snap, _context) => {
+  .onDelete(async (snap, context) => {
     const script = snap.data();
     try {
-      const file = await getFileRef(script.id);
+      const file = await getFileRef(context.params.scriptId);
       const [exists] = await file.exists();
       if (exists) {
         await deleteFile(file);
