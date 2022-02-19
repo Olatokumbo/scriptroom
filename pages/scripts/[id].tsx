@@ -6,6 +6,8 @@ import Link from "next/link";
 import { scriptById } from "../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../interfaces/script.interface";
+import { functions } from "../../firebase/config";
+import { useRouter } from "next/router";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -16,13 +18,20 @@ interface IScriptInfo {
 }
 
 const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
-  const viewPdf = () => {
-    // const data = functions.httpsCallable("getPdfUrl");
-    // data()
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((e) => console.log(e.message));
+  const {
+    query: { id },
+  } = useRouter();
+
+  const viewPdf = async () => {
+    const data = functions.httpsCallable("getPDFScript");
+    data({ id })
+      .then((response) => {
+        if (response.data) {
+         return  window.open(response.data.url[0], "_blank");
+        }
+        return alert("Error Retrieving Script")
+      })
+      .catch((e) => console.log(e.message));
   };
 
   return (

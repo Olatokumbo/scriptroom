@@ -28,8 +28,8 @@ const AddScript: NextPage = () => {
     const body = convertToRaw(editorState.getCurrentContent()).blocks.map(
       (data) => data.text
     );
-    const data = functions.httpsCallable("getPdf");
-    data({ title, author, genre, body })
+    const data = functions.httpsCallable("getPDFScript");
+    data({ id: 123 })
       .then((data) => {
         console.log(data);
       })
