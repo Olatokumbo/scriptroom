@@ -5,4 +5,5 @@ export interface IScript {
   userId: string;
   posterURL: string;
   category: string;
+  created: firebase.default.firestore.Timestamp;
 }

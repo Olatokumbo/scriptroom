@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IScript } from "../interfaces/script.interface";
 import getCategory from "../utils/getCategory";
 import { truncate } from "../utils/truncate";
+import { format } from "date-fns";
 
 interface IScriptCard {
   script: IScript;
@@ -36,7 +37,9 @@ const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
               <h1 className="text-white font-medium text-sm mx-2">david0</h1>
             </div>
             <div>
-              <h1 className="text-white text-xs text-right">12/12/2021</h1>
+              <h1 className="text-white text-xs text-right">
+                {format(new Date(script.created.toDate()), "MM/yyyy")}
+              </h1>
               <h1 className="text-white text-xs font-mono">
                 {getCategory(script.category)}
               </h1>
