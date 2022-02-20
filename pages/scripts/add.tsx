@@ -14,11 +14,13 @@ import {
 } from "@material-ui/core";
 import ScriptEditor from "../../components/Editor";
 import { functions } from "../../firebase/config";
+import { createScript } from "../../firebase/scripts";
 
 const AddScript: NextPage = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [genre, setGenre] = useState("full-length-movies");
+  const [category, setCategory] = useState("full-length-movies");
+  const [description, setDescription] = useState("");
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
@@ -28,12 +30,14 @@ const AddScript: NextPage = () => {
     const body = convertToRaw(editorState.getCurrentContent()).blocks.map(
       (data) => data.text
     );
-    const data = functions.httpsCallable("getPDFScript");
-    data({ id: 123 })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((e) => console.log(e.message));
+
+    createScript({
+      title,
+      author,
+      description: description.split("/n"),
+      body,
+      category,
+    });
   };
 
   return (
@@ -64,14 +68,14 @@ const AddScript: NextPage = () => {
             fullWidth
           />
           <FormControl margin="dense">
-            <InputLabel id="demo-simple-select-label">Genre</InputLabel>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={genre}
+              value={category}
               defaultValue="full-length-movies"
-              label="Genre"
-              onChange={(e) => setGenre(e.target.value as string)}
+              label="Category"
+              onChange={(e) => setCategory(e.target.value as string)}
             >
               <MenuItem value={"full-length-movies"}>
                 Full length Movies
@@ -83,6 +87,17 @@ const AddScript: NextPage = () => {
               <MenuItem value={"skits"}>Skits</MenuItem>
             </Select>
           </FormControl>
+          <TextField
+            size="small"
+            variant="outlined"
+            label="Description"
+            margin="dense"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            multiline
+            minRows={2}
+            fullWidth
+          />
           <ScriptEditor
             editorState={editorState}
             setEditorState={setEditorState}
@@ -92,7 +107,7 @@ const AddScript: NextPage = () => {
               !(
                 title &&
                 author &&
-                genre &&
+                category &&
                 editorState.getCurrentContent().hasText()
               )
             }

@@ -10,7 +10,6 @@ const useScripts = (query: any, id?: string) => {
         const data = id ? await query(id) : await query();
         setLoading(false);
         setScripts(data);
-        console.log(data);
       } catch (error: any) {
         alert(error.message);
         setLoading(false);

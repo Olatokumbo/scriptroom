@@ -27,11 +27,11 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
     data({ id })
       .then((response) => {
         if (response.data) {
-         return  window.open(response.data.url[0], "_blank");
+          return window.open(response.data.url[0], "_blank");
         }
-        return alert("Error Retrieving Script")
+        return alert("Error Retrieving Script");
       })
-      .catch((e) => console.log(e.message));
+      .catch((e) => alert(e.message));
   };
 
   return (
@@ -45,7 +45,10 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
           <div className="flex-3 bg-neutral-50 p-3 md:p-8 m-0 md:m-5  rounded-md">
             <img
               className="h-32 object-cover w-full rounded-t-md"
-              src={script?.posterURL}
+              src={
+                script?.posterURL ??
+                "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
+              }
             />
             <div className="flex justify-between w-full items-center my-3">
               <h1 className="font-bold text-2xl text-[#36395A]">

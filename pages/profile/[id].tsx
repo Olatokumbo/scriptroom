@@ -14,7 +14,7 @@ const Profile: NextPage = () => {
       <Layout>
         <CategoryList />
         <div className="flex p-3 flex-col md:flex-row m-auto max-w-[90rem]">
-          <div className="flex-3 p-0 md:p-10">
+          <div className="flex-3 p-0 md:p-5">
             <div className="w-full relative flex justify-center md:justify-start mb-32">
               <img
                 className="h-40 object-cover w-full rounded-md"

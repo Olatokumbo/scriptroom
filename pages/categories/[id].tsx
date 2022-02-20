@@ -26,8 +26,6 @@ const Category = ({
 
   const { loading, scripts } = useScripts(scriptsByCategory, id as string);
 
-  console.log(scripts, loading);
-
   return (
     <>
       <Head>
