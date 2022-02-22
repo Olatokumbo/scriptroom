@@ -1,14 +1,23 @@
 import { MenuAlt3Icon, SearchIcon } from "@heroicons/react/outline";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Menu, MenuItem } from "@material-ui/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef } from "react";
-import { useRecoilValue } from "recoil";
+import { useRef, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { signout } from "../firebase/auth";
 import { userState } from "../store/user";
 const Navbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (e: any) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const router = useRouter();
   const keywordRef = useRef<any>();
-  const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
 
   const search = (e: any) => {
     e.preventDefault();
@@ -19,6 +28,22 @@ const Navbar = () => {
         keyword: keywordRef?.current?.value,
       },
     });
+  };
+
+  const logout = async () => {
+    console.log("Logging out");
+    try {
+      await signout();
+      setUser({
+        email: null,
+        photoURL: null,
+        uid: null,
+        auth: false,
+        loading: false,
+      });
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
   return (
     <nav className="border-b-2 border-gray-100 w-full">
@@ -53,7 +78,21 @@ const Navbar = () => {
           </form>
         </div>
         {user?.auth ? (
-          <Avatar src={user.photoURL as string} />
+          <div>
+            <Avatar src={user.photoURL as string} onClick={handleClick} />
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              transformOrigin={{ vertical: "top", horizontal: "center" }}
+              getContentAnchorEl={null}
+            >
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={logout}>Logout</MenuItem>
+            </Menu>
+          </div>
         ) : (
           <Link href="/signin">
             <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-20 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">

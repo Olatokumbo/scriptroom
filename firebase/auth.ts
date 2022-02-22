@@ -12,3 +12,12 @@ export const signinGoogle = () => {
       alert(error.message);
     });
 };
+
+export const signout = () => {
+  return auth
+    .signOut()
+    .then(() => {})
+    .catch((error) => {
+      throw new Error(error.message);
+    });
+};
