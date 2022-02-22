@@ -6,6 +6,7 @@ const useScripts = (query: any, id?: string) => {
   const [loading, setLoading] = useState<Boolean>(true);
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const data = id ? await query(id) : await query();
         setLoading(false);

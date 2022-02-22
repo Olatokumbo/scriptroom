@@ -36,6 +36,7 @@ const Navbar = () => {
       await signout();
       setUser({
         email: null,
+        displayName: null,
         photoURL: null,
         uid: null,
         auth: false,
@@ -89,7 +90,9 @@ const Navbar = () => {
               transformOrigin={{ vertical: "top", horizontal: "center" }}
               getContentAnchorEl={null}
             >
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={() => router.push(`/profile/${user.uid}`)}>
+                My account
+              </MenuItem>
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
           </div>

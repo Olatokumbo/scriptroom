@@ -14,6 +14,7 @@ const Auth: React.FC<IAuth> = ({ children }) => {
       if (user) {
         setUser({
           email: user.email,
+          displayName: user.displayName,
           photoURL: user.photoURL,
           uid: user.uid,
           auth: true,
@@ -23,6 +24,7 @@ const Auth: React.FC<IAuth> = ({ children }) => {
       } else {
         setUser({
           email: null,
+          displayName: null,
           photoURL: null,
           uid: null,
           auth: false,
