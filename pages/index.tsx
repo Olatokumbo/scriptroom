@@ -21,13 +21,15 @@ const Home: NextPage = () => {
               Your one stop marketplace to find scripts of all types and genres
             </h1>
             <h1 className="text-gray-800 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <span className="font-bold">Oscar Wilde</span> once said that he
+              “regards the theatre as the greatest of all art forms, the most
+              immediate way in which a human being can share with another the
+              sense of what it is to be a human being.” and we at Script Room
+              couldn’t agree more. <span className="font-bold">Drama</span> is
+              such a versatile vehicle that can be used to catch people’s
+              attention and pass life-changing messages. Come be a part of this
+              community where you can be inspired by impactful stories and a
+              place you can also share your creativity with the world.
             </h1>
             <Link href="/signin" passHref>
               <button className="my-10 px-5 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white font-normal uppercase focus:outline-none">
