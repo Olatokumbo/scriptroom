@@ -39,7 +39,7 @@ export const createScript = async (script: IScriptDetails) => {
   try {
     const docRef = await firestore.collection("scripts").add({
       ...script,
-      created: firebase.firestore.FieldValue.serverTimestamp,
+      created: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
     return docRef.get();
