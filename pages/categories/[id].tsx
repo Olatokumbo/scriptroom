@@ -56,6 +56,7 @@ const Category = ({
                   className="object-cover"
                   layout="fill"
                   loading="eager"
+                  crossOrigin="anonymous"
                   priority
                 />
               </div>

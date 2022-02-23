@@ -31,7 +31,11 @@ export const scriptById = async (id: string) => {
   try {
     const doc = await firestore.collection("scripts").doc(id).get();
     const user = await doc.data()?.authorRef.get();
-    return JSON.stringify({ ...doc.data(), id: doc.id, user: user.data() });
+    return JSON.stringify({
+      ...doc.data(),
+      id: doc.id,
+      user: { ...user.data(), id: user.id },
+    });
   } catch (error) {
     throw error;
   }
