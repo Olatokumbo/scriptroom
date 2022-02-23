@@ -81,3 +81,7 @@ export const uploadScript = async (script: IScriptDetails) => {
     throw error;
   }
 };
+
+// export const listScriptId = async () => {
+//   const Id = await firestore.collection("scripts").withConverter
+// };

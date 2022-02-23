@@ -5,7 +5,7 @@ import "firebase/compat/functions";
 import "firebase/compat/auth";
 import "firebase/compat/analytics";
 
-var firebaseConfig = {
+export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -32,7 +32,7 @@ facebookProvider.setCustomParameters({ auth_type: "reauthenticate" });
 const firestore = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
-const functions = firebase.functions()
+const functions = firebase.functions();
 
 // if (process.env.NODE_ENV === "production") {
 //   firebase.analytics();

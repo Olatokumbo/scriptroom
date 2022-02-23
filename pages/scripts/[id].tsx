@@ -1,13 +1,20 @@
 import Head from "next/head";
 import CategoryList from "../../components/CategoryList";
 import Layout from "../../components/Layout";
-import { GetServerSideProps, NextPage } from "next";
+import {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from "next";
 import Link from "next/link";
 import { scriptById } from "../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../interfaces/script.interface";
-import { functions } from "../../firebase/config";
 import { useRouter } from "next/router";
+import scripts from "../api/scripts";
+import axios from "axios";
+import * as admin from "firebase-admin";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -88,8 +95,32 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
 
 export default ScriptInfo;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  if (admin.apps.length === 0) {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        privateKey: process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/gm, "\n"),
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        projectId: process.env.FIREBASE_PROJECT_ID,
+      }),
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    });
+  }
+
+  const collectionRef = admin.firestore().collection("scripts");
+
+  const docs = await collectionRef.listDocuments();
+
+  let paths = docs.map((doc: any) => ({ params: { id: doc.id } }));
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
   let script;
+
   const { id } = context.params as IParams;
   try {
     script = await scriptById(id);
@@ -103,5 +134,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       script,
     },
+    revalidate: 30,
   };
 };
+
+
+
+  // const d = await scripts()
+  // const scripts = await axios.get("/api/scripts", {
+  //   headers: {
+  //     Authorization: `Bearer ${process.env.FIREBASE_PRIVATE_KEY_ID}`,
+  //   },
+  // });
+
+  // const scriptsIds: string[] = await scripts.data.ids;
