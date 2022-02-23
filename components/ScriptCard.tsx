@@ -35,11 +35,13 @@ const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
               <Image
                 objectFit="cover"
                 className="rounded-full"
-                src="/images/profile.jpg"
+                src={script.user?.photoURL}
                 width={25}
                 height={25}
               />
-              <h1 className="text-white font-medium text-sm mx-2">david0</h1>
+              <h1 className="text-white font-medium text-sm mx-2">
+                {script.user?.displayName ?? "N/A"}
+              </h1>
             </div>
             <div>
               <h1 className="text-white text-xs text-right">

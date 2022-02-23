@@ -2,21 +2,29 @@ import firebase, { firestore } from "./config";
 import { fileUpload } from "./storage";
 
 export const scriptsByCategory = async (category: string) => {
-  const scripts: firebase.firestore.DocumentData[] = [];
   try {
     const querySnapShot = await firestore
       .collection("scripts")
       .where("category", "==", category)
       .get();
 
-    querySnapShot.forEach((doc) => {
-      scripts.push({ ...doc.data(), id: doc.id });
-    });
-
+    const scripts = await addUser(querySnapShot.docs);
     return scripts;
   } catch (error) {
     throw error;
   }
+};
+
+const addUser = async (docs: firebase.firestore.DocumentData[]) => {
+  const document: firebase.firestore.DocumentData[] = [];
+  await Promise.all(
+    docs.map(async (doc) => {
+      const docRef = await doc.data();
+      const user = await docRef.authorRef.get();
+      document.push({ ...docRef, id: doc.id, user: user.data() });
+    })
+  );
+  return document;
 };
 
 export const scriptById = async (id: string) => {

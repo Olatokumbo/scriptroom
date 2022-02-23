@@ -7,4 +7,8 @@ export interface IScript {
   scriptURL: string;
   category: string;
   date: firebase.default.firestore.Timestamp;
+  user: {
+    photoURL: string;
+    displayName: string;
+  };
 }
