@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import { convertToRaw, EditorState } from "draft-js";
 import { useState } from "react";
 
 import {
@@ -12,31 +11,28 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import ScriptEditor from "../../components/Editor";
-import { functions } from "../../firebase/config";
-import { createScript } from "../../firebase/scripts";
+import { uploadScript } from "../../firebase/scripts";
+import { UploadIcon } from "@heroicons/react/outline";
+import PrivateRoute from "../../hoc/PrivateRoute";
 
 const AddScript: NextPage = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("full-length-movies");
   const [description, setDescription] = useState("");
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-  // console.log(convertToRaw(editorState.getCurrentContent()).blocks);
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleUpload = (e: any) => {
+    setFile(e.target.files[0]);
+  };
 
   const save = () => {
-    const body = convertToRaw(editorState.getCurrentContent()).blocks.map(
-      (data) => data.text
-    );
-
-    createScript({
+    uploadScript({
       title,
       author,
       description: description.split("/n"),
-      body,
       category,
+      file,
     });
   };
 
@@ -98,17 +94,32 @@ const AddScript: NextPage = () => {
             minRows={2}
             fullWidth
           />
-          <ScriptEditor
+          {/* <ScriptEditor
             editorState={editorState}
             setEditorState={setEditorState}
-          />
+          /> */}
+          <div className="mt-2 mb-5">
+            <label htmlFor="photos">
+              <div className="flex">
+                <UploadIcon className="h-7 w-7 text-gray-500" />
+                <h1 className="font-bold text-gray-700">Upload PDF</h1>
+              </div>
+            </label>
+            <input
+              type="file"
+              id="photos"
+              // multiple
+              hidden
+              accept=".pdf"
+              onChange={handleUpload}
+              required
+            />
+          </div>
           <Button
             disabled={
               !(
-                title &&
-                author &&
-                category &&
-                editorState.getCurrentContent().hasText()
+                (title && author && category && file)
+                // editorState.getCurrentContent().hasText()
               )
             }
             onClick={save}
@@ -123,4 +134,4 @@ const AddScript: NextPage = () => {
   );
 };
 
-export default AddScript;
+export default PrivateRoute(AddScript);

@@ -1,4 +1,5 @@
 import firebase, { firestore } from "./config";
+import { fileUpload } from "./storage";
 
 export const scriptsByCategory = async (category: string) => {
   const scripts: firebase.firestore.DocumentData[] = [];
@@ -30,20 +31,45 @@ export const scriptById = async (id: string) => {
 interface IScriptDetails {
   title: string;
   author: string;
-  body: string[];
   description: string[];
   category: string;
+  file: File | null;
 }
 
-export const createScript = async (script: IScriptDetails) => {
+// export const createScript = async (script: IScriptDetails) => {
+//   try {
+//     const docRef = await firestore.collection("scripts").add({
+//       ...script,
+//       created: firebase.firestore.FieldValue.serverTimestamp(),
+//     });
+
+//     return docRef.get();
+//   } catch (error: any) {
+//     alert(error.message);
+//   }
+// };
+
+export const uploadScript = async (script: IScriptDetails) => {
   try {
     const docRef = await firestore.collection("scripts").add({
-      ...script,
-      created: firebase.firestore.FieldValue.serverTimestamp(),
+      title: script.title,
+      description: script.description,
+      category: script.category,
+      authorRef: firestore.doc(`/users/${firebase.auth().currentUser?.uid}`),
+      scriptURL: null,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
-    return docRef.get();
-  } catch (error: any) {
-    alert(error.message);
+    const scriptURL = await fileUpload(
+      script.file as File,
+      "scripts",
+      docRef.id
+    );
+    await firestore.collection("scripts").doc(docRef.id).update({
+      scriptURL,
+    });
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };

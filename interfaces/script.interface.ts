@@ -3,7 +3,8 @@ export interface IScript {
   title: string;
   description: string[];
   userId: string;
-  posterURL: string;
+  posterURL?: string;
+  scriptURL: string;
   category: string;
-  created: firebase.default.firestore.Timestamp;
+  date: firebase.default.firestore.Timestamp;
 }

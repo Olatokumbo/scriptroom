@@ -98,8 +98,8 @@ const Navbar = () => {
           </div>
         ) : (
           <Link href="/signin">
-            <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-20 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">
-              Signin
+            <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-24 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">
+              Sign In
             </button>
           </Link>
         )}

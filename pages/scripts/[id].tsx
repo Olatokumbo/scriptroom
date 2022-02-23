@@ -23,15 +23,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
   } = useRouter();
 
   const viewPdf = async () => {
-    const data = functions.httpsCallable("getPDFScript");
-    data({ id })
-      .then((response) => {
-        if (response.data) {
-          return window.open(response.data.url[0], "_blank");
-        }
-        return alert("Error Retrieving Script");
-      })
-      .catch((e) => alert(e.message));
+    return window.open(script.scriptURL, "_blank");
   };
 
   return (

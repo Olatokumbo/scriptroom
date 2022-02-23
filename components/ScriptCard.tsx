@@ -43,7 +43,7 @@ const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
             </div>
             <div>
               <h1 className="text-white text-xs text-right">
-                {format(new Date(script.created.toDate()), "MM/yyyy")}
+                {format(new Date(script.date.toDate()), "MM/yyyy")}
               </h1>
               <h1 className="text-white text-xs font-mono text-right">
                 {getCategory(script.category)}
