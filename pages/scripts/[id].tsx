@@ -71,20 +71,17 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
           </div>
           <div className="flex-2 bg-neutral-50 my-5 rounded-md p-5 h-fit">
             <h1 className="font-semibold text-[#36395A]">About the Author</h1>
-            <Link href="/profile/123">
+            <Link href={`/profile/${script.userId}`}>
               <div className="flex flex-col items-center my-2">
                 <img
-                  src="/images/profile.jpg"
+                  src={script.user.photoURL}
                   className="w-20 h-20 object-cover rounded-full"
                 />
-                <h1 className="font-medium">david0</h1>
+                <h1 className="font-medium">{script.user.displayName}</h1>
               </div>
             </Link>
             <p className="text-gray-600 text-sm my-1">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              {script.user.description && script.user.description}
             </p>
           </div>
         </div>
@@ -138,13 +135,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
+// const d = await scripts()
+// const scripts = await axios.get("/api/scripts", {
+//   headers: {
+//     Authorization: `Bearer ${process.env.FIREBASE_PRIVATE_KEY_ID}`,
+//   },
+// });
 
-
-  // const d = await scripts()
-  // const scripts = await axios.get("/api/scripts", {
-  //   headers: {
-  //     Authorization: `Bearer ${process.env.FIREBASE_PRIVATE_KEY_ID}`,
-  //   },
-  // });
-
-  // const scriptsIds: string[] = await scripts.data.ids;
+// const scriptsIds: string[] = await scripts.data.ids;

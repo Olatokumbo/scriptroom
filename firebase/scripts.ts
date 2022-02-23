@@ -30,7 +30,8 @@ const addUser = async (docs: firebase.firestore.DocumentData[]) => {
 export const scriptById = async (id: string) => {
   try {
     const doc = await firestore.collection("scripts").doc(id).get();
-    return JSON.stringify({ ...doc.data(), id: doc.id });
+    const user = await doc.data()?.authorRef.get();
+    return JSON.stringify({ ...doc.data(), id: doc.id, user: user.data() });
   } catch (error) {
     throw error;
   }

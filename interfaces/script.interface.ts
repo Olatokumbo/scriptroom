@@ -10,5 +10,6 @@ export interface IScript {
   user: {
     photoURL: string;
     displayName: string;
+    description?: string;
   };
 }
