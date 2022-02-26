@@ -69,9 +69,6 @@ const Profile: NextPage = () => {
                       : scripts.map((script, index) => (
                           <>
                             <ScriptCard key={index} script={script} />
-                            <ScriptCard key={index} script={script} />
-                            <ScriptCard key={index} script={script} />
-                            <ScriptCard key={index} script={script} />
                           </>
                         ))}
                   </div>
