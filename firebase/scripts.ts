@@ -1,6 +1,14 @@
 import firebase, { firestore } from "./config";
 import { fileUpload } from "./storage";
 
+interface IScriptDetails {
+  title: string;
+  author: string;
+  description: string[];
+  category: string;
+  file: File | null;
+}
+
 export const scriptsByCategory = async (category: string) => {
   try {
     const querySnapShot = await firestore
@@ -41,13 +49,19 @@ export const scriptById = async (id: string) => {
   }
 };
 
-interface IScriptDetails {
-  title: string;
-  author: string;
-  description: string[];
-  category: string;
-  file: File | null;
-}
+export const scriptsByUserId = async (userId: string) => {
+  try {
+    const querySnapShot = await firestore
+      .collection("scripts")
+      .where("userId", "==", userId)
+      .get();
+
+    const scripts = await addUser(querySnapShot.docs);
+    return scripts;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // export const createScript = async (script: IScriptDetails) => {
 //   try {
@@ -64,11 +78,13 @@ interface IScriptDetails {
 
 export const uploadScript = async (script: IScriptDetails) => {
   try {
+    const userId = firebase.auth().currentUser?.uid;
     const docRef = await firestore.collection("scripts").add({
       title: script.title,
       description: script.description,
       category: script.category,
-      authorRef: firestore.doc(`/users/${firebase.auth().currentUser?.uid}`),
+      userId,
+      authorRef: firestore.doc(`/users/${userId}`),
       scriptURL: null,
       date: firebase.firestore.FieldValue.serverTimestamp(),
     });

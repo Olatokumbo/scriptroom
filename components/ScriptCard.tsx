@@ -12,12 +12,12 @@ interface IScriptCard {
 const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
   return (
     <Link href={`/scripts/${script?.id}`} passHref>
-      <div className="flex flex-col rounded-t-md rounded-b-md shadow-lg hover:cursor-pointer hover:shadow-2xl">
+      <div className="flex flex-col rounded-t-md rounded-b-md shadow-lg hover:cursor-pointer hover:shadow-2xl transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100">
         <img
           className="h-28 object-cover w-full rounded-t-md"
           src={
-            script?.posterURL ??
-            "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
+            script?.posterURL ?? `https://source.unsplash.com/random`
+            // "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
           }
         />
         <div className="w-full h-2  bg-neutral-800"></div>

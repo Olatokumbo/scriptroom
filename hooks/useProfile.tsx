@@ -10,11 +10,12 @@ const useProfile = (id: string) => {
 
   useEffect(() => {
     const getData = async () => {
+      if (!id) return;
       setLoading(true);
       const user = await getUserById(id);
       if (user === null) {
         setNotFound(true);
-        alert("Profile Not Found")
+        alert("Profile Not Found");
       } else {
         setProfile(user);
         setNotFound(false);
