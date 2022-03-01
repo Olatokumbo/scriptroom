@@ -54,6 +54,7 @@ export const scriptsByUserId = async (userId: string) => {
     const querySnapShot = await firestore
       .collection("scripts")
       .where("userId", "==", userId)
+      .orderBy("date", "desc")
       .get();
 
     const scripts = await addUser(querySnapShot.docs);

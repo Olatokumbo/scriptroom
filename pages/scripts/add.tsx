@@ -14,26 +14,37 @@ import {
 import { uploadScript } from "../../firebase/scripts";
 import { UploadIcon } from "@heroicons/react/outline";
 import PrivateRoute from "../../hoc/PrivateRoute";
+import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../store/user";
 
 const AddScript: NextPage = () => {
+  const router = useRouter();
+  const { uid } = useRecoilValue(userState);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("full-length-movies");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleUpload = (e: any) => {
     setFile(e.target.files[0]);
   };
 
-  const save = () => {
-    uploadScript({
+  const save = async () => {
+    setLoading(true);
+    await uploadScript({
       title,
       author,
       description: description.split("/n"),
       category,
       file,
     });
+
+    setLoading(false);
+    alert("Script Uploaded");
+    router.push(`/profile/${uid}`);
   };
 
   return (
@@ -116,12 +127,7 @@ const AddScript: NextPage = () => {
             />
           </div>
           <Button
-            disabled={
-              !(
-                (title && author && category && file)
-                // editorState.getCurrentContent().hasText()
-              )
-            }
+            disabled={!(title && author && category && file) || loading}
             onClick={save}
             variant="contained"
             color="primary"

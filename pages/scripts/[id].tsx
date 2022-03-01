@@ -27,11 +27,15 @@ interface IScriptInfo {
 const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
   const {
     query: { id },
+    isFallback,
   } = useRouter();
 
   const viewPdf = async () => {
     return window.open(script.scriptURL, "_blank");
   };
+  if (isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -45,8 +49,8 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
             <img
               className="h-32 object-cover w-full rounded-t-md"
               src={
-                script?.posterURL ??
-                "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
+                script?.posterURL ?? `https://source.unsplash.com/random`
+                // "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
               }
             />
             <div className="flex justify-between w-full items-center my-3">
@@ -111,7 +115,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   let paths = docs.map((doc: any) => ({ params: { id: doc.id } }));
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -131,7 +135,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       script,
     },
-    revalidate: 30,
+    revalidate: 1,
   };
 };
 
