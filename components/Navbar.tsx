@@ -61,7 +61,35 @@ const Navbar = () => {
                 alt="headerImages"
               />
             </Link>
-            <MenuAlt3Icon className="h-6 w-6 lg:hidden md:hidden sm:hidden cursor-pointer block" />
+            <div className="lg:hidden md:hidden sm:hidden block">
+              {user?.auth ? (
+                <div>
+                  <Avatar src={user.photoURL as string} onClick={handleClick} />
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    transformOrigin={{ vertical: "top", horizontal: "center" }}
+                    getContentAnchorEl={null}
+                  >
+                    <MenuItem
+                      onClick={() => router.push(`/profile/${user.uid}`)}
+                    >
+                      My account
+                    </MenuItem>
+                    <MenuItem onClick={logout}>Logout</MenuItem>
+                  </Menu>
+                </div>
+              ) : (
+                <Link href="/signin">
+                  <button className="sm:mx-4 bg-[#36395A] py-[0.5rem] px-3 h-10 mx-auto text-white text-sm rounded-md hover:bg-gray-900 focus:outline-none">
+                    Sign In
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
           <form
             onSubmit={search}
@@ -78,31 +106,33 @@ const Navbar = () => {
             </button>
           </form>
         </div>
-        {user?.auth ? (
-          <div>
-            <Avatar src={user.photoURL as string} onClick={handleClick} />
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              transformOrigin={{ vertical: "top", horizontal: "center" }}
-              getContentAnchorEl={null}
-            >
-              <MenuItem onClick={() => router.push(`/profile/${user.uid}`)}>
-                My account
-              </MenuItem>
-              <MenuItem onClick={logout}>Logout</MenuItem>
-            </Menu>
-          </div>
-        ) : (
-          <Link href="/signin">
-            <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-24 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">
-              Sign In
-            </button>
-          </Link>
-        )}
+        <div className="lg:block md:block sm:block hidden">
+          {user?.auth ? (
+            <div>
+              <Avatar src={user.photoURL as string} onClick={handleClick} />
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                transformOrigin={{ vertical: "top", horizontal: "center" }}
+                getContentAnchorEl={null}
+              >
+                <MenuItem onClick={() => router.push(`/profile/${user.uid}`)}>
+                  My account
+                </MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <Link href="/signin">
+              <button className="sm:mx-4 bg-[#36395A] py-2 px-4 w-24 h-10 mx-auto text-white rounded-md hover:bg-gray-900 focus:outline-none">
+                Sign In
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
     </nav>
   );
