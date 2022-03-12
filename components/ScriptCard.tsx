@@ -11,7 +11,7 @@ interface IScriptCard {
 
 const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
   return (
-    <Link href={`/scripts/${script?.id}`} passHref>
+    <Link href={`/scripts/${script?.id || script.objectID}`} passHref>
       <div className="flex flex-col rounded-t-md rounded-b-md shadow-lg hover:cursor-pointer hover:shadow-2xl transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100">
         <img
           className="h-28 object-cover w-full rounded-t-md"
@@ -31,21 +31,23 @@ const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
             </h1>
           </div>
           <div className="w-full flex justify-between">
-            <div className="flex items-center">
-              <Image
-                objectFit="cover"
-                className="rounded-full"
-                src={script.user?.photoURL}
-                width={25}
-                height={25}
-              />
-              <h1 className="text-white font-medium text-sm mx-2">
-                {script.user?.displayName ?? "N/A"}
-              </h1>
-            </div>
+            {script.user && (
+              <div className="flex items-center">
+                <Image
+                  objectFit="cover"
+                  className="rounded-full"
+                  src={script.user?.photoURL}
+                  width={25}
+                  height={25}
+                />
+                <h1 className="text-white font-medium text-sm mx-2">
+                  {script.user?.displayName ?? "N/A"}
+                </h1>
+              </div>
+            )}
             <div>
               <h1 className="text-white text-xs text-right">
-                {format(new Date(script.date.toDate()), "MM/yyyy")}
+                {script.id && format(new Date(script.date.toDate()), "MM/yyyy")}
               </h1>
               <h1 className="text-white text-xs font-mono text-right">
                 {getCategory(script.category)}

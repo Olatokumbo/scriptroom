@@ -1,5 +1,6 @@
 export interface IScript {
   id: string;
+  objectID?: string;
   title: string;
   description: string[];
   userId: string;
