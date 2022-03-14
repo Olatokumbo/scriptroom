@@ -1,6 +1,6 @@
 import Head from "next/head";
-import CategoryList from "../../components/CategoryList";
-import Layout from "../../components/Layout";
+import CategoryList from "../../../components/CategoryList";
+import Layout from "../../../components/Layout";
 import {
   GetServerSideProps,
   GetStaticPaths,
@@ -8,11 +8,11 @@ import {
   NextPage,
 } from "next";
 import Link from "next/link";
-import { scriptById } from "../../firebase/scripts";
+import { scriptById } from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
-import { IScript } from "../../interfaces/script.interface";
+import { IScript } from "../../../interfaces/script.interface";
 import { useRouter } from "next/router";
-import scripts from "../api/scripts";
+import scripts from "../../api/scripts";
 import axios from "axios";
 import * as admin from "firebase-admin";
 
@@ -45,7 +45,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
       <Layout>
         <CategoryList />
         <div className="flex p-3 flex-col md:flex-row max-w-6xl m-auto">
-          <div className="flex-3 bg-neutral-50 p-3 md:p-8 m-0 md:m-5  rounded-md">
+          <div className="flex-3 bg-neutral-100 p-3 md:p-8 m-0 md:m-5  rounded-md">
             <img
               className="h-32 object-cover w-full rounded-t-md"
               src={
@@ -73,7 +73,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               ))}
             </div>
           </div>
-          <div className="flex-2 bg-neutral-50 my-5 rounded-md p-5 h-fit">
+          <div className="flex-2 bg-neutral-100 my-5 rounded-md p-5 h-fit">
             <h1 className="font-semibold text-[#36395A]">About the Author</h1>
             <Link href={`/profile/${script.user.id}`}>
               <div className="flex flex-col items-center my-2">

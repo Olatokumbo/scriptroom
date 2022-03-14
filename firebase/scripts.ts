@@ -64,6 +64,23 @@ export const scriptsByUserId = async (userId: string) => {
   }
 };
 
+export const scriptsByProfileId = async (id: string) => {
+  const scripts: firebase.firestore.DocumentData[] = [];
+  try {
+    const querySnapShot = await firestore
+      .collection("scripts")
+      .where("userId", "==", id)
+      .get();
+
+    querySnapShot.forEach((doc) => {
+      scripts.push({ ...doc.data(), id: doc.id });
+    });
+
+    return scripts;
+  } catch (error) {
+    throw error;
+  }
+};
 // export const createScript = async (script: IScriptDetails) => {
 //   try {
 //     const docRef = await firestore.collection("scripts").add({

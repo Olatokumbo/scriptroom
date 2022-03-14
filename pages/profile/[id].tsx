@@ -5,13 +5,11 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import CategoryList from "../../components/CategoryList";
 import Layout from "../../components/Layout";
-import ScriptCard from "../../components/ScriptCard";
-import { scriptsByUserId } from "../../firebase/scripts";
+import MyScriptCard from "../../components/MyScriptCard";
+import { scriptsByProfileId } from "../../firebase/scripts";
 import useProfile from "../../hooks/useProfile";
 import useScripts from "../../hooks/useScripts";
 import { userState } from "../../store/user";
-// import ScriptCard from "../../components/ScriptCard";
-// import PrivateRoute from "../../hoc/PrivateRoute";
 
 const Profile: NextPage = () => {
   const {
@@ -19,7 +17,7 @@ const Profile: NextPage = () => {
   } = useRouter();
 
   const { profile, notFound } = useProfile(id as string);
-  const { loading, scripts } = useScripts(scriptsByUserId, id as string);
+  const { loading, scripts } = useScripts(scriptsByProfileId, id as string);
   const { uid } = useRecoilValue(userState);
   return (
     <>
@@ -68,7 +66,7 @@ const Profile: NextPage = () => {
                       ? "Loading...."
                       : scripts.map((script, index) => (
                           <>
-                            <ScriptCard key={index} script={script} />
+                            <MyScriptCard key={index} script={script} />
                           </>
                         ))}
                   </div>
