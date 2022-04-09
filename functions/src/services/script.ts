@@ -3,7 +3,11 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 // import { randomUUID } from "crypto";
 import { File } from "@google-cloud/storage";
-import { createAlgoliaObject, deleteAlgoliaObject } from "./algolia";
+import {
+  createAlgoliaObject,
+  deleteAlgoliaObject,
+  updateAlgoliaObject,
+} from "./algolia";
 
 interface ApiError {
   code: number;
@@ -99,6 +103,21 @@ export const deleteScript = functions.firestore
       }
 
       return deleteAlgoliaObject("scripts", context.params.scriptId);
+    } catch (error) {
+      if (isApiError(error)) {
+        console.log(error);
+      }
+    }
+  });
+
+export const updateScript = functions.firestore
+  .document("scripts/{scriptId}")
+  .onUpdate(async (change, context) => {
+    try {
+      const script = change.after.data();
+      script.objectID = context.params.scriptId;
+
+      return updateAlgoliaObject("scripts", script);
     } catch (error) {
       if (isApiError(error)) {
         console.log(error);
