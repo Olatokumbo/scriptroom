@@ -65,13 +65,17 @@ const Category = ({
           <div className="p-2">
             <h1 className="ml-2 font-bold text-lg text-slate-600">TOP RATED</h1>
             <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
-              <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5">
-                {loading
-                  ? "Loading...."
-                  : scripts.map((script, index) => (
-                      <ScriptCard key={index} script={script} />
-                    ))}
-              </div>
+              {loading ? (
+                "Loading...."
+              ) : scripts.length == 0 ? (
+                <h1 className="m-auto text-2xl">Not Scripts Found</h1>
+              ) : (
+                <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5">
+                  {scripts.map((script) => (
+                    <ScriptCard key={script.id} script={script} />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
