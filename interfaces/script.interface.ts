@@ -7,6 +7,7 @@ export interface IScript {
   posterURL?: string;
   scriptURL: string;
   category: string;
+  author: string;
   date: firebase.default.firestore.Timestamp;
   user: {
     id?: string;

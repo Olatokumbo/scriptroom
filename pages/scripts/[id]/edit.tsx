@@ -1,61 +1,71 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import Layout from "../../components/Layout";
+import Layout from "../../../components/Layout";
 import { useState } from "react";
 
 import {
   Button,
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
+  CircularProgress,
 } from "@material-ui/core";
-import { uploadScript } from "../../firebase/scripts";
-import { UploadIcon } from "@heroicons/react/outline";
-import PrivateRoute from "../../hoc/PrivateRoute";
+import PrivateRoute from "../../../hoc/PrivateRoute";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../store/user";
+import { userState } from "../../../store/user";
+import useScripts from "../../../hooks/useScripts";
+import { scriptById2, updateScript } from "../../../firebase/scripts";
+import { ParsedUrlQuery } from "querystring";
+import { IScript } from "../../../interfaces/script.interface";
 
-const AddScript: NextPage = () => {
-  const router = useRouter();
+interface IParams extends ParsedUrlQuery {
+  id: string;
+}
+
+interface IScriptInfo {
+  script: IScript;
+}
+
+const EditScript: NextPage<IScriptInfo> = ({ script }) => {
+  const {
+    query: { id },
+    push,
+  } = useRouter();
   const { uid } = useRecoilValue(userState);
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("full-length-movies");
-  const [description, setDescription] = useState("");
-  const [file, setFile] = useState<File | null>(null);
+  const [title, setTitle] = useState(script.title);
+  const [author, setAuthor] = useState(script.author);
+  const [category, setCategory] = useState(script.category);
+  const [description, setDescription] = useState(script.description);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const handleUpload = (e: any) => {
-    setFile(e.target.files[0]);
-  };
 
   const save = async () => {
     setLoading(true);
-    await uploadScript({
-      title,
-      author,
-      description: description.split("/n"),
-      category,
-      file,
-    });
-
-    setLoading(false);
-    alert("Script Uploaded");
-    router.push(`/profile/${uid}`);
+    try {
+      await updateScript(id as string, {
+        title,
+        category,
+        description,
+        author,
+      });
+      setLoading(false);
+      alert("Script Updated");
+      push(`/profile/${uid}`);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
     <>
       <Head>
-        <title>Add Script</title>
+        <title>Edit Script</title>
       </Head>
       <Layout>
         <div className="p-3 m-auto max-w-[42rem]">
-          <h1 className="text-lg font-semibold">Add Script</h1>
+          <h1 className="text-lg font-semibold">Edit Script</h1>
           <TextField
             size="medium"
             variant="outlined"
@@ -65,7 +75,6 @@ const AddScript: NextPage = () => {
             margin="normal"
             fullWidth
           />
-
           <TextField
             size="small"
             variant="outlined"
@@ -101,40 +110,19 @@ const AddScript: NextPage = () => {
             label="Description"
             margin="dense"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value.split("/n"))}
             multiline
             minRows={2}
             fullWidth
           />
-          {/* <ScriptEditor
-            editorState={editorState}
-            setEditorState={setEditorState}
-          /> */}
-          <div className="mt-2 mb-5">
-            <label htmlFor="photos">
-              <div className="flex border-2 border-slate-600 w-fit p-2 rounded-full hover:cursor-pointer hover:bg-slate-200">
-                <UploadIcon className="h-7 w-7 text-gray-500" />
-                <h1 className="font-bold text-gray-700">Upload PDF</h1>
-              </div>
-            </label>
-            <input
-              type="file"
-              id="photos"
-              // multiple
-              hidden
-              accept=".pdf"
-              onChange={handleUpload}
-              required
-            />
-          </div>
           <div className="flex items-center">
             <Button
-              disabled={!(title && author && category && file) || loading}
+              disabled={!(title && category && description) || loading}
               onClick={save}
               variant="contained"
               color="primary"
             >
-              Save
+              Update
             </Button>
             {loading && <CircularProgress />}
           </div>
@@ -144,4 +132,22 @@ const AddScript: NextPage = () => {
   );
 };
 
-export default PrivateRoute(AddScript);
+export default PrivateRoute(EditScript);
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let script;
+  const { id } = context.params as IParams;
+  try {
+    script = await scriptById2(id);
+    script = JSON.parse(script);
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: {
+      script,
+    },
+  };
+};

@@ -9,6 +9,8 @@ interface IScriptDetails {
   file: File | null;
 }
 
+type UpdateScript = Omit<IScriptDetails, "file">;
+
 export const scriptsByCategory = async (category: string) => {
   try {
     const querySnapShot = await firestore
@@ -44,6 +46,16 @@ export const scriptById = async (id: string) => {
       id: doc.id,
       user: { ...user.data(), id: user.id },
     });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const scriptById2 = async (id: string) => {
+  try {
+    const script = await firestore.collection("scripts").doc(id).get();
+
+    return JSON.stringify(script.data());
   } catch (error) {
     throw error;
   }
@@ -101,6 +113,7 @@ export const uploadScript = async (script: IScriptDetails) => {
       title: script.title,
       description: script.description,
       category: script.category,
+      author: script.author,
       userId,
       authorRef: firestore.doc(`/users/${userId}`),
       scriptURL: null,
@@ -119,6 +132,15 @@ export const uploadScript = async (script: IScriptDetails) => {
     console.log(error);
     throw error;
   }
+};
+
+export const updateScript = async (id: string, script: UpdateScript) => {
+  await firestore
+    .collection("scripts")
+    .doc(id)
+    .update({
+      ...script,
+    });
 };
 
 // export const listScriptId = async () => {
