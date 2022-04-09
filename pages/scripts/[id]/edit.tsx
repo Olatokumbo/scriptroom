@@ -16,8 +16,11 @@ import PrivateRoute from "../../../hoc/PrivateRoute";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../store/user";
-import useScripts from "../../../hooks/useScripts";
-import { scriptById2, updateScript } from "../../../firebase/scripts";
+import {
+  deleteScript,
+  scriptById2,
+  updateScript,
+} from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../../interfaces/script.interface";
 
@@ -52,6 +55,18 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
       });
       setLoading(false);
       alert("Script Updated");
+      push(`/profile/${uid}`);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const remove = async () => {
+    setLoading(true);
+    try {
+      await deleteScript(id as string);
+      setLoading(false);
+      alert("Script Deleted");
       push(`/profile/${uid}`);
     } catch (error) {
       alert(error);
@@ -115,7 +130,7 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
             minRows={2}
             fullWidth
           />
-          <div className="flex items-center">
+          <div className="flex justify-between items-center">
             <Button
               disabled={!(title && category && description) || loading}
               onClick={save}
@@ -125,6 +140,14 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
               Update
             </Button>
             {loading && <CircularProgress />}
+            <Button
+              disabled={loading}
+              onClick={remove}
+              variant="contained"
+              color="secondary"
+            >
+              Delete
+            </Button>
           </div>
         </div>
       </Layout>

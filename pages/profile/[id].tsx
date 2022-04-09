@@ -61,19 +61,23 @@ const Profile: NextPage = () => {
                   MY SCRIPTS
                 </h1>
                 <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
-                  <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
-                    {loading
-                      ? "Loading...."
-                      : scripts.map((script, index) => (
-                          <>
-                            <MyScriptCard
-                              key={index}
-                              script={script}
-                              owner={uid === id}
-                            />
-                          </>
-                        ))}
-                  </div>
+                  {loading ? (
+                    "Loading...."
+                  ) : scripts.length == 0 ? (
+                    <h1 className="m-auto text-2xl">No Scripts</h1>
+                  ) : (
+                    <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+                      {scripts.map((script, index) => (
+                        <>
+                          <MyScriptCard
+                            key={index}
+                            script={script}
+                            owner={uid === id}
+                          />
+                        </>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

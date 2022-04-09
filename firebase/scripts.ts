@@ -143,6 +143,10 @@ export const updateScript = async (id: string, script: UpdateScript) => {
     });
 };
 
+export const deleteScript = async (id: string) => {
+  await firestore.collection("scripts").doc(id).delete();
+};
+
 // export const listScriptId = async () => {
 //   const Id = await firestore.collection("scripts").withConverter
 // };
