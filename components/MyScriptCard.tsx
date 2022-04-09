@@ -10,9 +10,10 @@ import { useState } from "react";
 
 interface IScriptCard {
   script: IScript;
+  owner: boolean;
 }
 
-const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
+const ScriptCard: React.FC<IScriptCard> = ({ script, owner }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event: any) => {
@@ -57,15 +58,15 @@ const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
                 <MenuItem>View</MenuItem>
               </a>
             </Link>
-            {/* {editable && ( */}
-            <>
-              <Link href={`/scripts/${script.id}/edit`}>
-                <a>
-                  <MenuItem>Edit</MenuItem>
-                </a>
-              </Link>
-            </>
-            {/* )} */}
+            {owner && (
+              <>
+                <Link href={`/scripts/${script.id}/edit`}>
+                  <a>
+                    <MenuItem>Edit</MenuItem>
+                  </a>
+                </Link>
+              </>
+            )}
           </Menu>
           <div>
             <h1 className="text-white text-xs text-right">

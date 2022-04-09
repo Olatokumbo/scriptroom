@@ -66,7 +66,11 @@ const Profile: NextPage = () => {
                       ? "Loading...."
                       : scripts.map((script, index) => (
                           <>
-                            <MyScriptCard key={index} script={script} />
+                            <MyScriptCard
+                              key={index}
+                              script={script}
+                              owner={uid === id}
+                            />
                           </>
                         ))}
                   </div>
