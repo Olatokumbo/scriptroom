@@ -1,4 +1,3 @@
-// import Image from "next/image";
 import Link from "next/link";
 import { IScript } from "../interfaces/script.interface";
 import getCategory from "../utils/getCategory";

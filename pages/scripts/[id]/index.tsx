@@ -7,8 +7,9 @@ import { scriptById } from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../../interfaces/script.interface";
 import { useRouter } from "next/router";
-import scripts from "../../api/scripts";
-import axios from "axios";
+import { EyeIcon } from "@heroicons/react/outline";
+// import scripts from "../../api/scripts";
+// import axios from "axios";
 import * as admin from "firebase-admin";
 
 interface IParams extends ParsedUrlQuery {
@@ -54,9 +55,9 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               </h1>
               <button
                 onClick={viewPdf}
-                className="px-6 py-2 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
+                className="flex px-6 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
               >
-                View
+                <EyeIcon width={20} height={20} className="mr-1" /> View
               </button>
             </div>
             <div>
