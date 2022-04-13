@@ -7,13 +7,15 @@ import { format } from "date-fns";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
 import { useState } from "react";
+import Image from "next/image";
 
 interface IScriptCard {
   script: IScript;
   owner: boolean;
+  index: number;
 }
 
-const ScriptCard: React.FC<IScriptCard> = ({ script, owner }) => {
+const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event: any) => {
@@ -25,10 +27,16 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, owner }) => {
   };
   return (
     <div className="flex flex-col shadow-lg border-2 border-slate-400">
-      <img
+      <Image
+        key={script.scriptURL}
+        width={600}
+        height={300}
+        objectFit="cover"
+        quality="100"
         className="h-28 object-cover w-full"
         src={
-          script?.posterURL ?? `https://source.unsplash.com/random`
+          script?.posterURL ??
+          `https://source.unsplash.com/random?scripts&${index}`
           // "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
         }
       />

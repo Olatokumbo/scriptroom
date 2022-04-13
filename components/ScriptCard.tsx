@@ -7,16 +7,23 @@ import { format } from "date-fns";
 
 interface IScriptCard {
   script: IScript;
+  index: number;
 }
 
-const ScriptCard: React.FC<IScriptCard> = ({ script }) => {
+const ScriptCard: React.FC<IScriptCard> = ({ script, index }) => {
   return (
     <Link href={`/scripts/${script?.id || script.objectID}`} passHref>
       <div className="flex flex-col rounded-t-md rounded-b-md shadow-lg hover:cursor-pointer hover:shadow-2xl transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100">
-        <img
-          className="h-28 object-cover w-full rounded-t-md"
+        <Image
+          key={script.scriptURL}
+          width={600}
+          height={300}
+          objectFit="cover"
+          quality="100"
+          className="h-28 w-full rounded-t-md"
           src={
-            script?.posterURL ?? `https://source.unsplash.com/random`
+            script?.posterURL ??
+            `https://source.unsplash.com/random?scripts&${index}`
             // "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
           }
         />

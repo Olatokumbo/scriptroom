@@ -73,6 +73,7 @@ const Profile: NextPage = () => {
                             key={index}
                             script={script}
                             owner={uid === id}
+                            index={index}
                           />
                         </>
                       ))}
