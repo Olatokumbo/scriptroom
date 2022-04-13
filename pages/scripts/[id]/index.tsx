@@ -1,11 +1,7 @@
 import Head from "next/head";
 import CategoryList from "../../../components/CategoryList";
 import Layout from "../../../components/Layout";
-import {
-  GetStaticPaths,
-  GetStaticProps,
-  NextPage,
-} from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { scriptById } from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
@@ -44,7 +40,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
       <Layout>
         <CategoryList />
         <div className="flex p-3 flex-col md:flex-row max-w-6xl m-auto">
-          <div className="flex-3 bg-neutral-100 p-3 md:p-8 m-0 md:m-5  rounded-md">
+          <div className="flex-2 bg-neutral-100 p-3 md:p-8 m-0 md:m-5  rounded-md">
             <img
               className="h-32 object-cover w-full rounded-t-md"
               src={
@@ -72,20 +68,26 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               ))}
             </div>
           </div>
-          <div className="flex-2 bg-neutral-100 my-5 rounded-md p-5 h-fit">
-            <h1 className="font-semibold text-[#36395A]">Posted By</h1>
-            <Link href={`/profile/${script.user.id}`}>
-              <div className="flex flex-col items-center my-2">
-                <img
-                  src={script.user.photoURL}
-                  className="w-20 h-20 object-cover rounded-full"
-                />
-                <h1 className="font-medium">{script.user.displayName}</h1>
-              </div>
-            </Link>
-            <p className="text-gray-600 text-sm my-1">
-              {script.user.description && script.user.description}
-            </p>
+          <div className="flex-1">
+            <div className="bg-neutral-100 my-5 rounded-md p-5 h-fit flex items-baseline">
+              <h1 className="font-semibold text-gray-600 mr-1">Author:</h1>
+              <h1 className="font-semibold text-[#36395A]">{script.author}</h1>
+            </div>
+            <div className="bg-neutral-100 my-5 rounded-md p-5 h-fit">
+              <h1 className="font-semibold text-[#36395A]">Posted By</h1>
+              <Link href={`/profile/${script.user.id}`}>
+                <div className="flex flex-col items-center my-2">
+                  <img
+                    src={script.user.photoURL}
+                    className="w-20 h-20 object-cover rounded-full"
+                  />
+                  <h1 className="font-medium">{script.user.displayName}</h1>
+                </div>
+              </Link>
+              <p className="text-gray-600 text-xs my-1">
+                {script.user.description && script.user.description}
+              </p>
+            </div>
           </div>
         </div>
       </Layout>

@@ -36,14 +36,14 @@ const Signin: NextPage = () => {
                 alt="headerImages"
               />
             </Link>
-            <h5 className="text-sm">
+            {/* <h5 className="text-sm">
               Don&#39;t have an Account
               <Link passHref href="/signup">
                 <span className="text-base text-blue-700 font-semibold">
                   Signup
                 </span>
               </Link>
-            </h5>
+            </h5> */}
           </div>
           <div className="flex flex-col p-3 items-center my-8 w-full md:w-96">
             <h1 className="self-start text-4xl font-bold my-4 text-gray-600">
@@ -56,8 +56,8 @@ const Signin: NextPage = () => {
               <img className="h-5 mx-3" src="/google.svg" alt="google" />{" "}
               Continue with Google
             </button>
-            <h5 className="text-gray-500 my-3">or</h5>
-            <form
+            {/* <h5 className="text-gray-500 my-3">or</h5> */}
+            {/* <form
               onSubmit={signin}
               className="w-full flex flex-col items-center"
             >
@@ -98,8 +98,8 @@ const Signin: NextPage = () => {
                   Sign in
                 </button>
               )}
-              {/* {loading && <CircularProgress />} */}
-            </form>
+              {loading && <CircularProgress />}
+            </form> */}
           </div>
         </div>
       </div>
