@@ -7,9 +7,10 @@ interface IScriptDetails {
   description: string[];
   category: string;
   file: File | null;
+  coverPhoto: File | null;
 }
 
-type UpdateScript = Omit<IScriptDetails, "file">;
+type UpdateScript = Omit<IScriptDetails, "file" | "coverPhoto">;
 
 export const scriptsByCategory = async (category: string) => {
   try {
@@ -125,8 +126,16 @@ export const uploadScript = async (script: IScriptDetails) => {
       "scripts",
       docRef.id
     );
+
+    const posterURL = await fileUpload(
+      script.coverPhoto as File,
+      "covers",
+      docRef.id
+    );
+
     await firestore.collection("scripts").doc(docRef.id).update({
       scriptURL,
+      posterURL,
     });
   } catch (error) {
     console.log(error);

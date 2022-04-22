@@ -18,6 +18,7 @@ import PrivateRoute from "../../hoc/PrivateRoute";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../store/user";
+import useDisplayPhoto from "../../hooks/useDisplayPhoto";
 
 const AddScript: NextPage = () => {
   const router = useRouter();
@@ -28,6 +29,12 @@ const AddScript: NextPage = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [coverPhoto, setCoverPhoto] = useState<File | null>(null);
+  const display = useDisplayPhoto(coverPhoto);
+
+  const handleUploadCoverPhoto = (e: any) => {
+    if (e.target.files[0] !== undefined) setCoverPhoto(e.target.files[0]);
+  };
 
   const handleUpload = (e: any) => {
     setFile(e.target.files[0]);
@@ -41,6 +48,7 @@ const AddScript: NextPage = () => {
       description: description.split("/n"),
       category,
       file,
+      coverPhoto,
     });
 
     setLoading(false);
@@ -56,6 +64,29 @@ const AddScript: NextPage = () => {
       <Layout>
         <div className="p-3 m-auto max-w-[42rem]">
           <h1 className="text-lg font-semibold">Add Script</h1>
+          <div>
+            <div className="bg-slate-400 h-32 w-full rounded-lg flex border-2 border-slate-600">
+              <img src={display} className="w-full object-cover rounded-lg" />
+            </div>
+            <div className="mt-2 mb-5">
+              <label htmlFor="photos">
+                <div className="flex">
+                  <UploadIcon className="h-7 w-7 text-gray-500" />
+                  <h1 className="font-bold text-gray-700">
+                    Upload Cover Photo
+                  </h1>
+                </div>
+              </label>
+              <input
+                type="file"
+                id="photos"
+                hidden
+                accept=".jpeg, .jpg, .png"
+                onChange={handleUploadCoverPhoto}
+                required
+              />
+            </div>
+          </div>
           <TextField
             size="medium"
             variant="outlined"
@@ -111,7 +142,7 @@ const AddScript: NextPage = () => {
             setEditorState={setEditorState}
           /> */}
           <div className="mt-2 mb-5">
-            <label htmlFor="photos">
+            <label htmlFor="script">
               <div className="flex border-2 border-slate-600 w-fit p-2 rounded-full hover:cursor-pointer hover:bg-slate-200">
                 <UploadIcon className="h-7 w-7 text-gray-500" />
                 <h1 className="font-bold text-gray-700">Upload PDF</h1>
@@ -119,7 +150,7 @@ const AddScript: NextPage = () => {
             </label>
             <input
               type="file"
-              id="photos"
+              id="script"
               // multiple
               hidden
               accept=".pdf"
@@ -129,7 +160,9 @@ const AddScript: NextPage = () => {
           </div>
           <div className="flex items-center">
             <Button
-              disabled={!(title && author && category && file) || loading}
+              disabled={
+                !(title && author && category && file && coverPhoto) || loading
+              }
               onClick={save}
               variant="contained"
               color="primary"
