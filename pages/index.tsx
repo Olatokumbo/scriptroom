@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import Banner from "../components/Banner";
 import CategoryList from "../components/CategoryList";
+import InfoCard from "../components/InfoCard";
 import Layout from "../components/Layout";
 import PublicRoute from "../hoc/PublicRoute";
 
@@ -20,7 +21,7 @@ const Home: NextPage = () => {
             <h1 className="my-4 text-lg">
               Your one stop marketplace to find scripts of all types and genres
             </h1>
-            <h1 className="text-gray-800 text-sm">
+            <h1 className="text-gray-800 text-sm text-justify">
               <span className="font-bold">Oscar Wilde</span> once said that he
               “regards the theatre as the greatest of all art forms, the most
               immediate way in which a human being can share with another the
@@ -47,6 +48,36 @@ const Home: NextPage = () => {
         </div>
         <div className="w-full flex justify-center my-5">
           <Banner />
+        </div>
+        <div className="mb-5 w-full px-2 grid gap-x-4 gap-y-4 grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 m-auto max-w-4xl">
+          <InfoCard
+            info={{
+              title: "Lorem ipsum dolor sit amet",
+              subtitle:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              url: "url",
+              body: "body",
+            }}
+          />
+          <InfoCard
+            info={{
+              title: "Lorem ipsum dolor sit amet",
+              subtitle:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              url: "url",
+              body: "body",
+            }}
+            middle
+          />
+          <InfoCard
+            info={{
+              title: "Lorem ipsum dolor sit amet",
+              subtitle:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              url: "url",
+              body: "body",
+            }}
+          />
         </div>
       </div>
     </Layout>

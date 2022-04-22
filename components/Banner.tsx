@@ -5,7 +5,7 @@ const Banner = () => {
         <h1 className="font-semibold text-lg  sm:text-xl mb-2">
           The Beginning of a New Thing
         </h1>
-        <p className="text-sm font-light leading-tight max-w-md">
+        <p className="text-sm font-light leading-tight max-w-md text-justify">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam
