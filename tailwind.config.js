@@ -11,7 +11,7 @@ module.exports = {
     "bg-blue-500",
     "bg-indigo-500",
     "bg-gray-600",
-    "bg-rose-600",
+    "bg-cyan-600",
   ],
   mode: "jit",
   theme: {
