@@ -45,7 +45,7 @@ const AddScript: NextPage = () => {
     await uploadScript({
       title,
       author,
-      description: description.split("/n"),
+      description: description.split(/\r?\n/),
       category,
       file,
       coverPhoto,

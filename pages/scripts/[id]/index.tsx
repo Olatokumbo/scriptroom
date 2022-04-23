@@ -44,10 +44,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
           <div className="flex-2 bg-neutral-100 p-3 md:p-8 m-0 md:m-5  rounded-md">
             <img
               className="h-32 object-cover w-full rounded-t-md"
-              src={
-                script?.posterURL ?? `https://source.unsplash.com/random`
-                // "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
-              }
+              src={script?.posterURL ?? `https://source.unsplash.com/random`}
             />
             <div className="flex justify-between w-full items-center my-3">
               <h1 className="font-bold text-2xl text-[#36395A]">
@@ -63,7 +60,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
             <div>
               <h1 className="font-medium">Description</h1>
               {script?.description?.map((body, index) => (
-                <p key={index} className="text-gray-600 text-sm my-1">
+                <p key={index} className="text-gray-600 text-sm my-1 pt-[2px] text-justify">
                   {body}
                 </p>
               ))}

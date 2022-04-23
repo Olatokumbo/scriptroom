@@ -7,6 +7,7 @@ import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface IScriptCard {
   script: IScript;
@@ -17,6 +18,8 @@ interface IScriptCard {
 const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const { push } = useRouter();
+
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -24,8 +27,14 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
-    <div className="flex flex-col shadow-lg border-2 border-slate-400">
+    <div
+      className={`flex flex-col shadow-lg border-2 border-slate-400 ${
+        !owner && "hover:cursor-pointer hover:-translate-y-1 transition ease-in-out delay-75"
+      }`}
+      onClick={() => !owner && push(`/scripts/${script.id}`)}
+    >
       <Image
         key={script.scriptURL}
         width={600}
@@ -36,7 +45,6 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
         src={
           script?.posterURL ??
           `https://source.unsplash.com/random?scripts&${index}`
-          // "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
         }
       />
       <div className="w-full h-2  bg-neutral-800"></div>
@@ -49,32 +57,34 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
             {truncate(script?.description[0])}
           </h1>
         </div>
-        <div className="w-full flex justify-between">
-          <IconButton size="small" onClick={handleClick}>
-            <DotsHorizontalIcon className="h-4 w-4 m-1 text-slate-200 cursor-pointer" />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <Link href={`/scripts/${script.id}`}>
-              <a target="_blank">
-                <MenuItem>View</MenuItem>
-              </a>
-            </Link>
-            {owner && (
-              <>
+        <div
+          className={`w-full flex ${owner ? "justify-between" : "justify-end"}`}
+        >
+          {owner && (
+            <>
+              <IconButton size="small" onClick={handleClick}>
+                <DotsHorizontalIcon className="h-4 w-4 m-1 text-slate-200 cursor-pointer" />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <Link href={`/scripts/${script.id}`}>
+                  <a target="_blank">
+                    <MenuItem>View</MenuItem>
+                  </a>
+                </Link>
                 <Link href={`/scripts/${script.id}/edit`}>
                   <a>
                     <MenuItem>Edit</MenuItem>
                   </a>
                 </Link>
-              </>
-            )}
-          </Menu>
+              </Menu>
+            </>
+          )}
           <div>
             <h1 className="text-white text-xs text-right">
               {script.id && format(new Date(script.date.toDate()), "MM/yyyy")}

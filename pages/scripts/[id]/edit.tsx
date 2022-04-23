@@ -41,7 +41,7 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
   const [title, setTitle] = useState(script.title);
   const [author, setAuthor] = useState(script.author);
   const [category, setCategory] = useState(script.category);
-  const [description, setDescription] = useState(script.description.join(" "));
+  const [description, setDescription] = useState(script.description.join("\r\n"));
   const [loading, setLoading] = useState<boolean>(false);
 
   const save = async () => {
@@ -50,7 +50,7 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
       await updateScript(id as string, {
         title,
         category,
-        description: description.split("/n"),
+        description: description.split(/\r?\n/),
         author,
       });
       setLoading(false);

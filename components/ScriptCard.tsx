@@ -24,7 +24,6 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, index }) => {
           src={
             script?.posterURL ??
             `https://source.unsplash.com/random?scripts&${index}`
-            // "https://firebasestorage.googleapis.com/v0/b/script-room.appspot.com/o/ab1310c11f5f280ace9523f896ac1d56.jpg?alt=media&token=b2a510f3-0b30-4909-99b5-463141175e5f"
           }
         />
         <div className="w-full h-2  bg-neutral-800"></div>
