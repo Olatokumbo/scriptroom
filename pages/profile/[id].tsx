@@ -10,15 +10,36 @@ import { scriptsByProfileId } from "../../firebase/scripts";
 import useProfile from "../../hooks/useProfile";
 import useScripts from "../../hooks/useScripts";
 import { userState } from "../../store/user";
+import { PencilIcon } from "@heroicons/react/solid";
+import { updateCoverPhoto } from "../../firebase/user";
+import { useState } from "react";
+import Spinner from "../../widgets/spinner";
 
 const Profile: NextPage = () => {
   const {
     query: { id },
+    reload,
   } = useRouter();
 
   const { profile, notFound } = useProfile(id as string);
   const { loading, scripts } = useScripts(scriptsByProfileId, id as string);
+  const [photoLoading, setPhotoLoading] = useState<boolean>(false);
   const { uid } = useRecoilValue(userState);
+
+  const handleUploadCoverPhoto = async (e: any) => {
+    const file = e.target.files[0];
+    if (uid) {
+      try {
+        setPhotoLoading(true);
+        await updateCoverPhoto(uid, file);
+        reload();
+      } catch (error) {
+        alert(error);
+      }
+      setPhotoLoading(false);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -30,10 +51,46 @@ const Profile: NextPage = () => {
           <div className="flex-1  h-screen p-1 md:p-2"></div>
           <div className="flex-3 p-1 md:p-2">
             <div className="w-full relative flex justify-center md:justify-start mb-32">
-              <img
-                className="h-40 object-cover w-full rounded-md"
-                src={`https://source.unsplash.com/user/wsanter`}
-              />
+              <div className="h-40 w-full rounded-md relative">
+                {/* <button className="m-3 right-0 p-3 rounded-full absolute bg-gray-300 hover:bg-gray-200 bg-opacity-60"> */}
+                {/* <PencilIcon
+                    width={25}
+                    height={25}
+                    className="text-slate-800"
+                  ></PencilIcon> */}
+
+                {uid === id && (
+                  <div className="m-3 right-0 rounded-full absolute">
+                    {photoLoading ? (
+                      <Spinner />
+                    ) : (
+                      <div>
+                        <label htmlFor="photos">
+                          <div className="p-3 rounded-full bg-gray-300 hover:bg-gray-200 hover:bg-opacity-90 bg-opacity-60 transition ease-in-out">
+                            <PencilIcon
+                              width={25}
+                              height={25}
+                              className="text-slate-800"
+                            ></PencilIcon>
+                          </div>
+                        </label>
+                        <input
+                          type="file"
+                          id="photos"
+                          hidden
+                          accept=".jpeg, .jpg, .png"
+                          onChange={handleUploadCoverPhoto}
+                          required
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+                <img
+                  className="h-full w-full object-cover rounded-md"
+                  src={profile?.coverURL}
+                />
+              </div>
               <div className="mx-14 absolute top-20">
                 <div className="bg-white p-2 rounded-full">
                   <img

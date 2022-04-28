@@ -6,7 +6,6 @@ import path from "path";
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import Navbar from "../../components/Navbar";
 import ScriptCard from "../../components/ScriptCard";
 import Layout from "../../components/Layout";
 import useScripts from "../../hooks/useScripts";

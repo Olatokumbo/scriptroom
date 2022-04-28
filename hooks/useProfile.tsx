@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserById } from "../firebase/user";
+// import { IProfile } from "../interfaces/profile.interface";
 
 const useProfile = (id: string) => {
   const [profile, setProfile] = useState<
