@@ -11,6 +11,7 @@ import { EyeIcon } from "@heroicons/react/outline";
 // import scripts from "../../api/scripts";
 // import axios from "axios";
 import * as admin from "firebase-admin";
+import { getCategoryColor } from "../../../utils/getCategoryColor";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -46,6 +47,9 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               className="h-32 object-cover w-full rounded-t-md"
               src={script?.posterURL ?? `https://source.unsplash.com/random`}
             />
+            <div
+              className={`w-full h-2 rounded-b-md ${getCategoryColor(script.category)} `}
+            ></div>
             <div className="flex justify-between w-full items-center my-3">
               <h1 className="font-bold text-2xl text-[#36395A]">
                 {script?.title}
@@ -60,7 +64,10 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
             <div>
               <h1 className="font-medium">Description</h1>
               {script?.description?.map((body, index) => (
-                <p key={index} className="text-gray-600 text-sm my-1 pt-[2px] text-justify">
+                <p
+                  key={index}
+                  className="text-gray-600 text-sm my-1 pt-[2px] text-justify"
+                >
                   {body}
                 </p>
               ))}
