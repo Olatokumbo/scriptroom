@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Layout from "../../../components/Layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Button,
@@ -23,6 +23,8 @@ import {
 } from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../../interfaces/script.interface";
+import { PencilIcon } from "@heroicons/react/solid";
+import useDisplayPhoto from "../../../hooks/useDisplayPhoto";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -41,8 +43,17 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
   const [title, setTitle] = useState(script.title);
   const [author, setAuthor] = useState(script.author);
   const [category, setCategory] = useState(script.category);
-  const [description, setDescription] = useState(script.description.join("\r\n"));
+  const [description, setDescription] = useState(
+    script.description.join("\r\n")
+  );
+  const [coverPhoto, setCoverPhoto] = useState<File | null>(null);
+  const display = useDisplayPhoto(coverPhoto);
+
   const [loading, setLoading] = useState<boolean>(false);
+
+  const handleUploadCoverPhoto = (e: any) => {
+    if (e.target.files[0] !== undefined) setCoverPhoto(e.target.files[0]);
+  };
 
   const save = async () => {
     setLoading(true);
@@ -52,6 +63,7 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
         category,
         description: description.split(/\r?\n/),
         author,
+        coverPhoto,
       });
       setLoading(false);
       alert("Script Updated");
@@ -73,6 +85,9 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
     }
   };
 
+  useEffect(() => {
+    if (script.userId !== uid) push("/");
+  }, []);
   return (
     <>
       <Head>
@@ -81,6 +96,35 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
       <Layout>
         <div className="p-3 m-auto max-w-[42rem]">
           <h1 className="text-lg font-semibold">Edit Script</h1>
+          <div className="h-40 w-full rounded-md relative">
+            {uid === script.userId && (
+              <div className="m-3 right-0 rounded-full absolute">
+                <div>
+                  <label htmlFor="photos">
+                    <div className="p-3 rounded-full bg-gray-300 hover:bg-gray-200 hover:bg-opacity-90 bg-opacity-60 transition ease-in-out">
+                      <PencilIcon
+                        width={25}
+                        height={25}
+                        className="text-slate-800"
+                      ></PencilIcon>
+                    </div>
+                  </label>
+                  <input
+                    type="file"
+                    id="photos"
+                    hidden
+                    accept=".jpeg, .jpg, .png"
+                    onChange={handleUploadCoverPhoto}
+                    required
+                  />
+                </div>
+              </div>
+            )}
+            <img
+              className="h-full w-full object-cover rounded-md"
+              src={display.length > 0 ? display : script.posterURL!}
+            />
+          </div>
           <TextField
             size="medium"
             variant="outlined"

@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 import firebase, { firestore } from "./config";
 import { fileUpload } from "./storage";
 
@@ -7,10 +8,10 @@ interface IScriptDetails {
   description: string[];
   category: string;
   file: File | null;
-  coverPhoto: File | null;
+  coverPhoto?: File | null;
 }
 
-type UpdateScript = Omit<IScriptDetails, "file" | "coverPhoto">;
+type UpdateScript = Omit<IScriptDetails, "file">;
 
 export const scriptsByCategory = async (category: string) => {
   try {
@@ -144,11 +145,17 @@ export const uploadScript = async (script: IScriptDetails) => {
 };
 
 export const updateScript = async (id: string, script: UpdateScript) => {
+  const posterURL =
+    script.coverPhoto &&
+    (await fileUpload(script.coverPhoto as File, "covers", v4()));
+    delete script.coverPhoto
+
   await firestore
     .collection("scripts")
     .doc(id)
     .update({
       ...script,
+      posterURL
     });
 };
 
