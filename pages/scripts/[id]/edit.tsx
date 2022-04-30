@@ -64,6 +64,7 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
         description: description.split(/\r?\n/),
         author,
         coverPhoto,
+        posterURL: script.posterURL
       });
       setLoading(false);
       alert("Script Updated");
@@ -122,7 +123,7 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
             )}
             <img
               className="h-full w-full object-cover rounded-md"
-              src={display.length > 0 ? display : script.posterURL!}
+              src={display.length > 0 ? display : script.posterURL}
             />
           </div>
           <TextField

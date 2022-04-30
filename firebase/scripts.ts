@@ -11,7 +11,9 @@ interface IScriptDetails {
   coverPhoto?: File | null;
 }
 
-type UpdateScript = Omit<IScriptDetails, "file">;
+interface UpdateScript extends Omit<IScriptDetails, "file"> {
+  posterURL?: string;
+}
 
 export const scriptsByCategory = async (category: string) => {
   try {
@@ -145,17 +147,17 @@ export const uploadScript = async (script: IScriptDetails) => {
 };
 
 export const updateScript = async (id: string, script: UpdateScript) => {
-  const posterURL =
-    script.coverPhoto &&
-    (await fileUpload(script.coverPhoto as File, "covers", v4()));
-    delete script.coverPhoto
+  const posterURL = script.coverPhoto
+    ? await fileUpload(script.coverPhoto as File, "covers", v4())
+    : script.posterURL;
+  delete script.coverPhoto;
 
   await firestore
     .collection("scripts")
     .doc(id)
     .update({
       ...script,
-      posterURL
+      posterURL,
     });
 };
 
