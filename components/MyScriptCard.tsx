@@ -8,6 +8,7 @@ import { DotsHorizontalIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { getCategoryColor } from "../utils/getCategoryColor";
 
 interface IScriptCard {
   script: IScript;
@@ -31,7 +32,8 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
   return (
     <div
       className={`flex flex-col shadow-lg border-2 border-slate-400 ${
-        !owner && "hover:cursor-pointer hover:-translate-y-1 transition ease-in-out delay-75"
+        !owner &&
+        "hover:cursor-pointer hover:-translate-y-1 transition ease-in-out delay-75"
       }`}
       onClick={() => !owner && push(`/scripts/${script.id}`)}
     >
@@ -47,7 +49,7 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
           `https://source.unsplash.com/random?scripts&${index}`
         }
       />
-      <div className="w-full h-2  bg-neutral-800"></div>
+      <div className={`w-full h-2 ${getCategoryColor(script.category)} `}></div>
       <div className="bg-slate-600 p-3 shadow-gray-700 flex flex-1 flex-col justify-between">
         <div>
           <h1 className="font-semibold text-md text-neutral-100 leading-4">

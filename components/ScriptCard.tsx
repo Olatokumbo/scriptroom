@@ -4,6 +4,7 @@ import { IScript } from "../interfaces/script.interface";
 import getCategory from "../utils/getCategory";
 import { truncate } from "../utils/truncate";
 import { format } from "date-fns";
+import { getCategoryColor } from "../utils/getCategoryColor";
 
 interface IScriptCard {
   script: IScript;
@@ -26,7 +27,9 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, index }) => {
             `https://source.unsplash.com/random?scripts&${index}`
           }
         />
-        <div className="w-full h-2  bg-neutral-800"></div>
+        <div
+          className={`w-full h-2 ${getCategoryColor(script.category)} `}
+        ></div>
         <div className="bg-[#36395A] p-3 rounded-b-md shadow-gray-700 flex flex-1 flex-col justify-between">
           <div>
             <h1 className="font-semibold text-md text-neutral-100 leading-4">
