@@ -25,6 +25,9 @@ import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../../interfaces/script.interface";
 import { PencilIcon } from "@heroicons/react/solid";
 import useDisplayPhoto from "../../../hooks/useDisplayPhoto";
+import {
+  checkImageFileTypeOrFail
+} from "../../../utils/checkFileType";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -52,7 +55,12 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleUploadCoverPhoto = (e: any) => {
-    if (e.target.files[0] !== undefined) setCoverPhoto(e.target.files[0]);
+    try {
+      checkImageFileTypeOrFail(e.target.files[0].type);
+      if (e.target.files[0] !== undefined) setCoverPhoto(e.target.files[0]);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const save = async () => {

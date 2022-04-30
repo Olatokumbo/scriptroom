@@ -8,8 +8,6 @@ import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../../interfaces/script.interface";
 import { useRouter } from "next/router";
 import { EyeIcon } from "@heroicons/react/outline";
-// import scripts from "../../api/scripts";
-// import axios from "axios";
 import * as admin from "firebase-admin";
 import { getCategoryColor } from "../../../utils/getCategoryColor";
 

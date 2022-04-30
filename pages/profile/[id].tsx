@@ -13,6 +13,7 @@ import { userState } from "../../store/user";
 import { PencilIcon } from "@heroicons/react/solid";
 import { updateCoverPhoto } from "../../firebase/user";
 import { useState } from "react";
+import { checkImageFileTypeOrFail } from "../../utils/checkFileType";
 
 const Profile: NextPage = () => {
   const {
@@ -26,11 +27,11 @@ const Profile: NextPage = () => {
   const { uid } = useRecoilValue(userState);
 
   const handleUploadCoverPhoto = async (e: any) => {
-    const file = e.target.files[0];
     if (uid) {
       try {
+        checkImageFileTypeOrFail(e.target.files[0].type);
         setPhotoLoading(true);
-        await updateCoverPhoto(uid, file);
+        await updateCoverPhoto(uid, e.target.files[0]);
         reload();
       } catch (error) {
         alert(error);

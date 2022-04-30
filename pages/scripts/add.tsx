@@ -19,6 +19,10 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../store/user";
 import useDisplayPhoto from "../../hooks/useDisplayPhoto";
+import {
+  checkImageFileTypeOrFail,
+  checkPdfFileTypeOrFail,
+} from "../../utils/checkFileType";
 
 const AddScript: NextPage = () => {
   const router = useRouter();
@@ -33,11 +37,21 @@ const AddScript: NextPage = () => {
   const display = useDisplayPhoto(coverPhoto);
 
   const handleUploadCoverPhoto = (e: any) => {
-    if (e.target.files[0] !== undefined) setCoverPhoto(e.target.files[0]);
+    try {
+      checkImageFileTypeOrFail(e.target.files[0].type);
+      if (e.target.files[0] !== undefined) setCoverPhoto(e.target.files[0]);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const handleUpload = (e: any) => {
-    setFile(e.target.files[0]);
+    try {
+      checkPdfFileTypeOrFail(e.target.files[0].type);
+      setFile(e.target.files[0]);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const save = async () => {
