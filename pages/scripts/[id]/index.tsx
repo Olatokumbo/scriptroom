@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { EyeIcon } from "@heroicons/react/outline";
 import * as admin from "firebase-admin";
 import { getCategoryColor } from "../../../utils/getCategoryColor";
+import CommentCard from "../../../components/CommentCard";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -46,7 +47,9 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               src={script?.posterURL ?? `https://source.unsplash.com/random`}
             />
             <div
-              className={`w-full h-2 rounded-b-md ${getCategoryColor(script.category)} `}
+              className={`w-full h-2 rounded-b-md ${getCategoryColor(
+                script.category
+              )} `}
             ></div>
             <div className="flex justify-between w-full items-center my-3">
               <h1 className="font-bold text-2xl text-[#36395A]">
@@ -91,6 +94,15 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
                 {script.user.description && script.user.description}
               </p>
             </div>
+            {/* <div className="bg-neutral-100 my-5 rounded-md p-3 h-96">
+              <h1 className="font-semibold text-gray text-sm mb-3">Comments</h1>
+              <div className="h-80 overflow-auto">
+                <CommentCard />
+                <CommentCard /> 
+                <CommentCard /> 
+                <CommentCard />
+              </div>
+            </div> */}
           </div>
         </div>
       </Layout>
