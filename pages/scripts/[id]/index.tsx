@@ -7,10 +7,14 @@ import { scriptById } from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
 import { IScript } from "../../../interfaces/script.interface";
 import { useRouter } from "next/router";
-import { EyeIcon } from "@heroicons/react/outline";
+import { EyeIcon, PaperAirplaneIcon } from "@heroicons/react/outline";
 import * as admin from "firebase-admin";
 import { getCategoryColor } from "../../../utils/getCategoryColor";
 import CommentCard from "../../../components/CommentCard";
+import { createComment } from "../../../firebase/comment";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../store/user";
+import { useState } from "react";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -21,10 +25,13 @@ interface IScriptInfo {
 }
 
 const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
+  const { uid } = useRecoilValue(userState);
   const {
     query: { id },
     isFallback,
   } = useRouter();
+
+  const [comment, setComment] = useState<string>("");
 
   const viewPdf = async () => {
     return window.open(script.scriptURL, "_blank");
@@ -33,6 +40,18 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
     return <div>Loading...</div>;
   }
 
+  const addComment = async (e: any) => {
+    e.preventDefault();
+    try {
+      if (uid) {
+        await createComment(uid, id as string, comment);
+        setComment("");
+        alert("Comment Sent");
+      }
+    } catch (error) {
+      alert(error)
+    }
+  };
   return (
     <>
       <Head>
@@ -94,15 +113,37 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
                 {script.user.description && script.user.description}
               </p>
             </div>
-            {/* <div className="bg-neutral-100 my-5 rounded-md p-3 h-96">
+            <div className="bg-neutral-100 my-5 rounded-md p-3">
               <h1 className="font-semibold text-gray text-sm mb-3">Comments</h1>
-              <div className="h-80 overflow-auto">
+              <div className="max-h-80 overflow-auto">
                 <CommentCard />
-                <CommentCard /> 
-                <CommentCard /> 
+                <CommentCard />
+                <CommentCard />
                 <CommentCard />
               </div>
-            </div> */}
+              <form className="w-full max-w-sm" onSubmit={addComment}>
+                <div className="flex items-center pt-2 pb-1">
+                  <input
+                    className="bg-white rounded-md appearance-none border-none w-full text-gray-700 mr-3 py-2 px-2 leading-tight focus:outline-none"
+                    type="text"
+                    placeholder="Write a Comment..."
+                    aria-label="Full name"
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}
+                  />
+                  <button
+                    className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-md"
+                    type="submit"
+                  >
+                    <PaperAirplaneIcon
+                      width={18}
+                      height={18}
+                      className="rotate-45"
+                    />
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </Layout>
