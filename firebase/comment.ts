@@ -6,8 +6,8 @@ export const createComment = async (
 ) => {
   return firestore.collection("comments").add({
     authorRef: firestore.doc(`/users/${userId}`),
-    scriptId: firestore.doc(`/scripts/${scriptId}`),
-    comment,
+    scriptId,
+    text: comment,
     date: firebase.firestore.FieldValue.serverTimestamp(),
   });
 };
