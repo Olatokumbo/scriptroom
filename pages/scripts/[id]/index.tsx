@@ -11,6 +11,9 @@ import { EyeIcon } from "@heroicons/react/outline";
 import * as admin from "firebase-admin";
 import { getCategoryColor } from "../../../utils/getCategoryColor";
 import Comments from "../../../components/Comments";
+import { PencilIcon } from "@heroicons/react/solid";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../store/user";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -25,6 +28,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
     query: { id },
     isFallback,
   } = useRouter();
+  const { uid } = useRecoilValue(userState);
 
   const viewPdf = async () => {
     return window.open(script.scriptURL, "_blank");
@@ -55,12 +59,25 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               <h1 className="font-bold text-2xl text-[#36395A]">
                 {script?.title}
               </h1>
-              <button
-                onClick={viewPdf}
-                className="flex px-6 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
-              >
-                <EyeIcon width={20} height={20} className="mr-1" /> View
-              </button>
+              <div className="flex">
+                <button
+                  onClick={viewPdf}
+                  className="items-center flex mr-0 xs:mr-2 px-6 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
+                >
+                  <EyeIcon width={20} height={20} className="mr-1" /> View
+                </button>
+                {uid === script.user.id && (
+                  <Link href={`/scripts/${id}/edit`}>
+                    <div className="p-3 rounded-md bg-gray-300 hover:bg-gray-400 hover:bg-opacity-90  hover:cursor-pointer bg-opacity-60 transition ease-in-out">
+                      <PencilIcon
+                        width={25}
+                        height={25}
+                        className="text-slate-800"
+                      ></PencilIcon>
+                    </div>
+                  </Link>
+                )}
+              </div>
             </div>
             <div>
               <h1 className="font-medium">Description</h1>
