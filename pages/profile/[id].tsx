@@ -22,7 +22,7 @@ const Profile: NextPage = () => {
   } = useRouter();
 
   const { profile, notFound } = useProfile(id as string);
-  const { loading, scripts } = useScripts(scriptsByProfileId, id as string);
+  const { loading, scripts } = useScripts(scriptsByProfileId, id as string, true);
   const [photoLoading, setPhotoLoading] = useState<boolean>(false);
   const { uid } = useRecoilValue(userState);
 

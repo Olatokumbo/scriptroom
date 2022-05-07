@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { IScript } from "../interfaces/script.interface";
 
-const useScripts = (query: any, id?: string) => {
+const useScripts = (query: any, id?: string, needId?: boolean) => {
   const [scripts, setScripts] = useState<IScript[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   useEffect(() => {
     const fetchData = async () => {
-      // if (!id) return;
+      if (!id && needId) return;
       setLoading(true);
       try {
         const data = id ? await query(id) : await query();

@@ -23,7 +23,7 @@ const Category = ({
   const router = useRouter();
   const { id } = router.query;
 
-  const { loading, scripts } = useScripts(scriptsByCategory, id as string);
+  const { loading, scripts } = useScripts(scriptsByCategory, id as string, true);
 
   return (
     <>

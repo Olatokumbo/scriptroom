@@ -20,6 +20,7 @@ export const scriptsByCategory = async (category: string) => {
     const querySnapShot = await firestore
       .collection("scripts")
       .where("category", "==", category)
+      .orderBy("date", "desc")
       .get();
 
     const scripts = await addUser(querySnapShot.docs);
@@ -86,6 +87,7 @@ export const scriptsByProfileId = async (id: string) => {
     const querySnapShot = await firestore
       .collection("scripts")
       .where("userId", "==", id)
+      .orderBy("date", "desc")
       .get();
 
     querySnapShot.forEach((doc) => {
