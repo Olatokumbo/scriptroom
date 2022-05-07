@@ -52,7 +52,7 @@ const Navbar = () => {
         <div className="flex items-start flex-col sm:flex-row sm:items-center w-full">
           <div className="flex items-center justify-between w-full sm:w-auto md:w-auto">
             <Link
-              href={user.auth ? "/categories/full-length-movies" : "/"}
+              href={user.auth ? "/home" : "/"}
               passHref
             >
               <img

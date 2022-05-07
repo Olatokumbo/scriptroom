@@ -165,6 +165,16 @@ export const deleteScript = async (id: string) => {
   await firestore.collection("scripts").doc(id).delete();
 };
 
-// export const listScriptId = async () => {
-//   const Id = await firestore.collection("scripts").withConverter
-// };
+export const listScripts = async () => {
+  try {
+    const querySnapShot = await firestore
+      .collection("scripts")
+      .orderBy("date", "desc")
+      .get();
+
+    const scripts = await addUser(querySnapShot.docs);
+    return scripts;
+  } catch (error) {
+    throw error;
+  }
+};
