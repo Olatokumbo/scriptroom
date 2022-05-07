@@ -28,9 +28,13 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
     query: { id },
     isFallback,
   } = useRouter();
-  const { uid } = useRecoilValue(userState);
+  const { uid, auth } = useRecoilValue(userState);
 
   const viewPdf = async () => {
+    if (!auth) {
+      alert("Please create an account to view this script");
+      return;
+    }
     return window.open(script.scriptURL, "_blank");
   };
   if (isFallback) {
@@ -62,13 +66,13 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               <div className="flex">
                 <button
                   onClick={viewPdf}
-                  className="items-center flex mr-0 xs:mr-2 px-6 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
+                  className="items-center flex px-6 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
                 >
                   <EyeIcon width={20} height={20} className="mr-1" /> View
                 </button>
                 {uid === script.user.id && (
                   <Link href={`/scripts/${id}/edit`}>
-                    <div className="p-3 rounded-md bg-gray-300 hover:bg-gray-400 hover:bg-opacity-90  hover:cursor-pointer bg-opacity-60 transition ease-in-out">
+                    <div className="p-3 ml-0 xs:ml-2 rounded-md bg-gray-300 hover:bg-gray-400 hover:bg-opacity-90  hover:cursor-pointer bg-opacity-60 transition ease-in-out">
                       <PencilIcon
                         width={25}
                         height={25}

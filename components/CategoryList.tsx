@@ -1,13 +1,14 @@
 import { HomeIcon } from "@heroicons/react/solid";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
-import { userState } from "../store/user";
+// import { useRecoilValue } from "recoil";
+// import { userState } from "../store/user";
 const CategoryList = ({ id }: { id?: string | undefined }) => {
-  const { auth } = useRecoilValue(userState);
+  // const { auth } = useRecoilValue(userState);
   return (
     <div className="py-2 flex overflow-auto w-full whitespace-nowrap border-b-2 border-gray-100 border-solid">
       <div className="m-auto flex">
-        <Link href={auth ? "/home" : "/"} passHref>
+        <Link href={"/home"} passHref>
+          {/* <Link href={auth ? "/home" : "/"} passHref> */}
           <HomeIcon
             className="text-[#36395A] mx-6 cursor-pointer hover:text-[#747ab6]"
             width={25}
