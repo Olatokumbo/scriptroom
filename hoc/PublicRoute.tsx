@@ -9,7 +9,7 @@ const PublicRoute = (WrappedComponent: any) => {
       const [{ auth, loading }, _] = useRecoilState(userState);
       useEffect(() => {
         if (auth) {
-            router.replace("/categories/full-length-movies");
+            router.replace("/home");
         }
       }, [auth]);
     }
