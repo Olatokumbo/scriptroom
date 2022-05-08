@@ -86,10 +86,7 @@ const AddScript: NextPage = () => {
             </div>
             <div className="mt-2 mb-5">
               <label htmlFor="photos">
-                {/* <div className="flex"> */}
-                {/* <UploadIcon className="h-7 w-7 text-gray-500" /> */}
                 <h1 className="font-bold text-gray-700 mb-2">Cover Photo</h1>
-                {/* </div> */}
               </label>
               <input
                 type="file"
