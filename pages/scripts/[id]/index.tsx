@@ -103,7 +103,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
             <div className="bg-neutral-100 my-5 rounded-md p-5 h-fit">
               <h1 className="font-semibold text-[#36395A]">Posted By</h1>
               <Link href={`/profile/${script.user.id}`}>
-                <div className="flex flex-col items-center my-2">
+                <div className="flex flex-col items-center my-2 hover:cursor-pointer">
                   <img
                     src={script.user.photoURL}
                     className="w-20 h-20 object-cover rounded-full"

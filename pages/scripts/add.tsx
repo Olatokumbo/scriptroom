@@ -37,15 +37,17 @@ const AddScript: NextPage = () => {
   const display = useDisplayPhoto(coverPhoto);
 
   const handleUploadCoverPhoto = (e: any) => {
+    if (e.target.files[0] === undefined) return;
     try {
       checkImageFileTypeOrFail(e.target.files[0].type);
-      if (e.target.files[0] !== undefined) setCoverPhoto(e.target.files[0]);
+      setCoverPhoto(e.target.files[0]);
     } catch (error) {
       alert(error);
     }
   };
 
   const handleUpload = (e: any) => {
+    if (e.target.files[0] === undefined) return;
     try {
       checkPdfFileTypeOrFail(e.target.files[0].type);
       setFile(e.target.files[0]);
@@ -84,16 +86,21 @@ const AddScript: NextPage = () => {
             </div>
             <div className="mt-2 mb-5">
               <label htmlFor="photos">
-                <div className="flex">
-                  <UploadIcon className="h-7 w-7 text-gray-500" />
-                  <h1 className="font-bold text-gray-700">
-                    Upload Cover Photo
-                  </h1>
-                </div>
+                {/* <div className="flex"> */}
+                {/* <UploadIcon className="h-7 w-7 text-gray-500" /> */}
+                <h1 className="font-bold text-gray-700 mb-2">Cover Photo</h1>
+                {/* </div> */}
               </label>
               <input
                 type="file"
                 id="photos"
+                className="block w-full text-sm text-slate-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-violet-50 file:text-violet-700
+              hover:file:bg-violet-100
+              "
                 hidden
                 accept=".jpeg, .jpg, .png"
                 onChange={handleUploadCoverPhoto}
@@ -151,21 +158,20 @@ const AddScript: NextPage = () => {
             minRows={2}
             fullWidth
           />
-          {/* <ScriptEditor
-            editorState={editorState}
-            setEditorState={setEditorState}
-          /> */}
           <div className="mt-2 mb-5">
             <label htmlFor="script">
-              <div className="flex border-2 border-slate-600 w-fit p-2 rounded-full hover:cursor-pointer hover:bg-slate-200">
-                <UploadIcon className="h-7 w-7 text-gray-500" />
-                <h1 className="font-bold text-gray-700">Upload PDF</h1>
-              </div>
+              <h1 className="font-bold text-gray-700 mb-3">Upload PDF</h1>
             </label>
             <input
               type="file"
               id="script"
-              // multiple
+              className="block w-full text-sm text-slate-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-violet-50 file:text-violet-700
+              hover:file:bg-violet-100
+              "
               hidden
               accept=".pdf"
               onChange={handleUpload}
@@ -175,7 +181,14 @@ const AddScript: NextPage = () => {
           <div className="flex items-center">
             <Button
               disabled={
-                !(title && author && category && file && coverPhoto) || loading
+                !(
+                  title &&
+                  author &&
+                  category &&
+                  file &&
+                  coverPhoto &&
+                  description
+                ) || loading
               }
               onClick={save}
               variant="contained"
