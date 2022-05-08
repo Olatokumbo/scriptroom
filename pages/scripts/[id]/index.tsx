@@ -44,7 +44,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
   return (
     <>
       <Head>
-        <title>Script | ScriptRoom</title>
+        <title>{script.title} | ScriptRoom</title>
       </Head>
       <Layout>
         <CategoryList />
