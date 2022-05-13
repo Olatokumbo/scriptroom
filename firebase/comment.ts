@@ -1,4 +1,5 @@
 import firebase, { firestore } from "./config";
+
 export const createComment = async (
   userId: string,
   scriptId: string,
@@ -26,6 +27,14 @@ export const findCommentsByScriptId = async (id: string) => {
     });
 
     return comments;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const removeComment = async (id: string) => {
+  try {
+    return firestore.collection("comments").doc(id).delete();
   } catch (error) {
     throw error;
   }

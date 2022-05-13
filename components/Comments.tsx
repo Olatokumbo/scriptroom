@@ -48,6 +48,7 @@ const Comments: React.FC<IComment> = ({ scriptId }) => {
             aria-label="Full name"
             onChange={(e) => setComment(e.target.value)}
             value={comment}
+            maxLength={200}
           />
           <button
             disabled={!comment}
