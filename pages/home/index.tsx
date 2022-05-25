@@ -1,13 +1,18 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
 import CategoryList from "../../components/CategoryList";
 import Layout from "../../components/Layout";
 import ScriptCard from "../../components/ScriptCard";
-import Slider from "../../components/Slider";
+import { Slider } from "../../components/Slider";
 import { listScripts } from "../../firebase/scripts";
 import useScripts from "../../hooks/useScripts";
+import { createClient } from "contentful";
 
-const Home: NextPage = () => {
+interface IHome {
+  data: any[];
+}
+const Home: NextPage<IHome> = ({ data }) => {
   const { loading, scripts } = useScripts(listScripts);
   return (
     <>
@@ -17,7 +22,7 @@ const Home: NextPage = () => {
       <Layout>
         <CategoryList />
         <div className="max-w-7xl px-4 md:px-3 py-3 m-auto">
-          <Slider />
+          <Slider images={data} />
           <div className="pt-8 pb-4">
             <h1 className="font-bold text-lg text-slate-600">LATEST</h1>
             <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
@@ -41,3 +46,18 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID!,
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
+  });
+  const response = await client.getEntries({
+    content_type: "header",
+  });
+  return {
+    props: {
+      data: response.items,
+    },
+  };
+};

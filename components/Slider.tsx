@@ -1,11 +1,17 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
-
-const featuredProducts = ["/images/pattern2.jpg", "/images/wp2.jpg"];
 
 let count = 0;
 let slideInterval: any;
-export default function Slider() {
+
+interface ISlider {
+  images?: any[];
+}
+export const Slider: React.FC<ISlider> = ({ images }) => {
+  const wallpapers = images?.map(
+    (data) => `https:${data?.fields?.wallpaper.fields.file.url}`
+  )!;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const slideRef = useRef<HTMLDivElement>(null);
@@ -39,12 +45,12 @@ export default function Slider() {
   };
 
   const handleOnNextClick = () => {
-    count = (count + 1) % featuredProducts.length;
+    count = (count + 1) % wallpapers.length;
     setCurrentIndex(count);
     if (slideRef.current) slideRef.current.classList.add("fade-anim");
   };
   const handleOnPrevClick = () => {
-    const productsLength = featuredProducts.length;
+    const productsLength = wallpapers.length;
     count = (currentIndex + productsLength - 1) % productsLength;
     setCurrentIndex(count);
     if (slideRef.current) slideRef.current.classList.add("fade-anim");
@@ -53,7 +59,14 @@ export default function Slider() {
   return (
     <div ref={slideRef} className="w-full select-none relative">
       <div className="aspect-w-16 aspect-h-9 h-44 sm:h-48 md:h-80">
-        <img className="h-full w-full object-cover rounded-lg" src={featuredProducts[currentIndex]} alt="" />
+        <Image
+          className="h-full w-full object-cover rounded-lg"
+          layout="fill"
+          src={wallpapers[currentIndex]}
+          loading="eager"
+          alt="wallpaper"
+          
+        />
       </div>
 
       <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center">
@@ -72,4 +85,4 @@ export default function Slider() {
       </div>
     </div>
   );
-}
+};
