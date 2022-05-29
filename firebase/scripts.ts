@@ -172,10 +172,29 @@ export const listScripts = async () => {
     const querySnapShot = await firestore
       .collection("scripts")
       .orderBy("date", "desc")
+      .limit(10)
       .get();
 
+    let lastVariable = querySnapShot.docs[querySnapShot.docs.length - 1];
+
     const scripts = await addUser(querySnapShot.docs);
-    return scripts;
+    return { scripts, last: lastVariable };
+  } catch (error) {
+    throw error;
+  }
+};
+export const nextListScript = async (last: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) => {
+  try {
+    let next = await firestore
+      .collection("scripts")
+      .orderBy("date", "desc")
+      .startAfter(last)
+      .limit(10)
+      .get();
+
+    let lastVariable = next.docs[next.docs.length - 1];
+    const scripts = await addUser(next.docs);
+    return { scripts, last: lastVariable };
   } catch (error) {
     throw error;
   }

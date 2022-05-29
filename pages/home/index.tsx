@@ -1,11 +1,10 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
 import CategoryList from "../../components/CategoryList";
 import Layout from "../../components/Layout";
 import ScriptCard from "../../components/ScriptCard";
 import { Slider } from "../../components/Slider";
-import { listScripts } from "../../firebase/scripts";
+import { listScripts, nextListScript } from "../../firebase/scripts";
 import useScripts from "../../hooks/useScripts";
 import { createClient } from "contentful";
 
@@ -13,7 +12,12 @@ interface IHome {
   data: any[];
 }
 const Home: NextPage<IHome> = ({ data }) => {
-  const { loading, scripts } = useScripts(listScripts);
+  const { loading, scripts, last, next } = useScripts(
+    listScripts,
+    undefined,
+    undefined,
+    nextListScript
+  );
   return (
     <>
       <Head>
@@ -21,11 +25,11 @@ const Home: NextPage<IHome> = ({ data }) => {
       </Head>
       <Layout>
         <CategoryList />
-        <div className="max-w-7xl px-4 md:px-3 py-3 m-auto">
+        <div className="max-w-7xl px-4 md:px-3 py-3 m-auto flex flex-col justify-center items-center">
           <Slider images={data} />
           <div className="pt-8 pb-4">
             <h1 className="font-bold text-lg text-slate-600">LATEST</h1>
-            <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
+            <div className="flex justify-center flex-col items-center mx-0 my-2 sm:my-5">
               {loading ? (
                 "Loading...."
               ) : scripts.length == 0 ? (
@@ -39,6 +43,13 @@ const Home: NextPage<IHome> = ({ data }) => {
               )}
             </div>
           </div>
+          <button
+            disabled={!last}
+            onClick={next}
+            className="text-[#36395A] border border-[#36395A] hover:bg-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+          >
+            Show More
+          </button>
         </div>
       </Layout>
     </>
@@ -47,7 +58,11 @@ const Home: NextPage<IHome> = ({ data }) => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=60, stale-while-revalidate=59"
+  );
   const client = createClient({
     space: process.env.CONTENTFUL_SPACE_ID!,
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,

@@ -63,7 +63,7 @@ export const Slider: React.FC<ISlider> = ({ images }) => {
           className="h-full w-full object-cover rounded-lg"
           layout="fill"
           src={wallpapers[currentIndex]}
-          loading="eager"
+          loading="lazy"
           alt="wallpaper"
           
         />
