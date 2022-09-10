@@ -14,8 +14,8 @@ import Comments from "../../../components/Comments";
 import { PencilIcon } from "@heroicons/react/solid";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../store/user";
-import { capitalizeFirstLetter } from "../../../utils/helpers";
 import Image from "next/image";
+import getCategory from "../../../utils/getCategory";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -106,7 +106,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
             <div className="bg-neutral-100 rounded-md p-5 h-fit flex items-baseline">
               <h1 className="font-semibold text-gray-600 mr-1">Category:</h1>
               <h1 className="font-semibold text-[#36395A]">
-                {capitalizeFirstLetter(script.category)}
+                {getCategory(script.category)}
               </h1>
             </div>
             <div className="bg-neutral-100 my-2 rounded-md p-5 h-fit">
