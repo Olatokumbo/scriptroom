@@ -48,8 +48,8 @@ const Profile: NextPage = () => {
       <Layout>
         <CategoryList />
         <div className="flex p-3 md:p-5 flex-col md:flex-row m-auto max-w-[90rem]">
-          <div className="flex-1  h-screen p-1 md:p-2"></div>
-          <div className="flex-3 p-1 md:p-2">
+          {/* <div className="flex-1  h-screen p-1 sm:p-2"></div> */}
+          <div className="flex-3 lg:flex-4 p-1 md:p-2   max-w-[50rem] m-auto">
             <div className="w-full relative flex justify-center md:justify-start mb-32">
               <div className="h-40 w-full rounded-md relative">
                 {/* <button className="m-3 right-0 p-3 rounded-full absolute bg-gray-300 hover:bg-gray-200 bg-opacity-60"> */}
@@ -138,7 +138,7 @@ const Profile: NextPage = () => {
                   ) : scripts.length == 0 ? (
                     <h1 className="m-auto text-2xl">No Scripts</h1>
                   ) : (
-                    <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+                    <div className="mb-5 w-full px-2 grid gap-x-2 gap-y-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
                       {scripts.map((script, index) => (
                         <>
                           <MyScriptCard
@@ -155,7 +155,7 @@ const Profile: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="flex-1  h-screen p-1 md:p-2">
+          {/* <div className="flex-1  h-screen p-1 sm:p-2"> */}
             {/* <div className="p-4 md:p-2 rounded-md border-2 border-slate-500">
               <div className="flex justify-between w-full">
                 <h1 className="font-semibold text-[#36395A]">
@@ -169,7 +169,7 @@ const Profile: NextPage = () => {
                 {profile?.description}
               </p>
             </div> */}
-          </div>
+          {/* </div> */}
         </div>
       </Layout>
     </>

@@ -32,7 +32,7 @@ const Category = ({
       </Head>
       <Layout>
         <CategoryList id={id as string} />
-        <div className="max-w-6xl m-auto">
+        <div className="max-w-7xl m-auto">
           <div className="flex p-3">
             <div
               className={
