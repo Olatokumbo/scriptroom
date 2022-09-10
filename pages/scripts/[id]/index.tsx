@@ -14,6 +14,8 @@ import Comments from "../../../components/Comments";
 import { PencilIcon } from "@heroicons/react/solid";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../store/user";
+import { capitalizeFirstLetter } from "../../../utils/helpers";
+import Image from "next/image";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -49,8 +51,9 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
       <Layout>
         <CategoryList />
         <div className="flex p-3 flex-col md:flex-row max-w-6xl m-auto">
-          <div className="flex-2 bg-neutral-100 p-3 md:p-8 m-0 md:m-5  rounded-md">
+          <div className="flex-2 bg-neutral-100 p-3 md:p-8 m-0 md:m-5 rounded-md h-full">
             <img
+              alt={script.title}
               className="h-32 object-cover w-full rounded-t-md"
               src={script?.posterURL ?? `https://source.unsplash.com/random`}
             />
@@ -71,7 +74,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
                   <EyeIcon width={20} height={20} className="mr-1" /> View
                 </button>
                 {uid === script.user.id && (
-                  <Link href={`/scripts/${id}/edit`}>
+                  <Link href={`/scripts/${id}/edit`} passHref>
                     <div className="p-3 ml-0 xs:ml-2 rounded-md bg-gray-300 hover:bg-gray-400 hover:bg-opacity-90  hover:cursor-pointer bg-opacity-60 transition ease-in-out">
                       <PencilIcon
                         width={25}
@@ -96,15 +99,24 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
             </div>
           </div>
           <div className="flex-1">
-            <div className="bg-neutral-100 my-5 rounded-md p-5 h-fit flex items-baseline">
+            <div className="bg-neutral-100 mt-5 mb-2 rounded-md p-5 h-fit flex items-baseline">
               <h1 className="font-semibold text-gray-600 mr-1">Author:</h1>
               <h1 className="font-semibold text-[#36395A]">{script.author}</h1>
             </div>
-            <div className="bg-neutral-100 my-5 rounded-md p-5 h-fit">
+            <div className="bg-neutral-100 rounded-md p-5 h-fit flex items-baseline">
+              <h1 className="font-semibold text-gray-600 mr-1">Category:</h1>
+              <h1 className="font-semibold text-[#36395A]">
+                {capitalizeFirstLetter(script.category)}
+              </h1>
+            </div>
+            <div className="bg-neutral-100 my-2 rounded-md p-5 h-fit">
               <h1 className="font-semibold text-[#36395A]">Posted By</h1>
-              <Link href={`/profile/${script.user.id}`}>
+              <Link href={`/profile/${script.user.id}`} passHref>
                 <div className="flex flex-col items-center my-2 hover:cursor-pointer">
-                  <img
+                  <Image
+                    width={80}
+                    height={80}
+                    alt={script.user.displayName}
                     src={script.user.photoURL}
                     className="w-20 h-20 object-cover rounded-full"
                   />

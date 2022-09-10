@@ -32,7 +32,7 @@ const Comments: React.FC<IComment> = ({ scriptId }) => {
   };
 
   return (
-    <div className="bg-neutral-100 my-5 rounded-md p-3">
+    <div className="bg-neutral-100 my-2 rounded-md p-3">
       <h1 className="font-semibold text-gray text-sm mb-3">Comments</h1>
       <div className="max-h-80 overflow-auto">
         {comments.map((comment) => (

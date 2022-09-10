@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IScript } from "../interfaces/script.interface";
 import getCategory from "../utils/getCategory";
-import { truncate } from "../utils/truncate";
+import { truncate } from "../utils/helpers";
 import { format } from "date-fns";
 import { getCategoryColor } from "../utils/getCategoryColor";
 
@@ -22,6 +22,7 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, index }) => {
           objectFit="cover"
           quality="100"
           className="h-28 w-full rounded-t-md"
+          alt={script.title}
           src={
             script?.posterURL ??
             `https://source.unsplash.com/random?scripts&${index}`
@@ -46,6 +47,7 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, index }) => {
                   objectFit="cover"
                   className="rounded-full"
                   src={script.user?.photoURL}
+                  alt={script.user.displayName}
                   width={25}
                   height={25}
                 />

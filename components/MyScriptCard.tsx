@@ -1,6 +1,6 @@
 import { IScript } from "../interfaces/script.interface";
 import getCategory from "../utils/getCategory";
-import { truncate } from "../utils/truncate";
+import { truncate } from "../utils/helpers";
 import { format } from "date-fns";
 import Image from "next/image";
 import { getCategoryColor } from "../utils/getCategoryColor";
@@ -26,6 +26,7 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, owner, index }) => {
           height={300}
           objectFit="cover"
           quality="100"
+          alt={script.title}
           className="h-28 object-cover w-full"
           src={
             script?.posterURL ??
