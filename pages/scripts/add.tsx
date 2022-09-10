@@ -4,7 +4,7 @@ import Layout from "../../components/Layout";
 import { useState } from "react";
 import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { uploadScript } from "../../firebase/scripts";
-import { UploadIcon } from "@heroicons/react/outline";
+// import { UploadIcon } from "@heroicons/react/outline";
 import PrivateRoute from "../../hoc/PrivateRoute";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
@@ -15,6 +15,7 @@ import {
   checkPdfFileTypeOrFail,
 } from "../../utils/checkFileType";
 import CategoryDropDown from "../../components/CategoryDropDown";
+import ChooseFileInput from "../../components/ChooseFileInput";
 
 const AddScript: NextPage = () => {
   const router = useRouter();
@@ -76,26 +77,13 @@ const AddScript: NextPage = () => {
             <div className="bg-slate-400 h-32 w-full rounded-lg flex border-2 border-slate-600">
               <img src={display} className="w-full object-cover rounded-lg" />
             </div>
-            <div className="mt-2 mb-5">
-              <label htmlFor="photos">
-                <h1 className="font-bold text-gray-700 mb-2">Cover Photo</h1>
-              </label>
-              <input
-                type="file"
-                id="photos"
-                className="block w-full text-sm text-slate-500
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-full file:border-0
-              file:text-sm file:font-semibold
-              file:bg-violet-50 file:text-violet-700
-              hover:file:bg-violet-100
-              "
-                hidden
-                accept=".jpeg, .jpg, .png"
-                onChange={handleUploadCoverPhoto}
-                required
-              />
-            </div>
+
+            <ChooseFileInput
+              title="Cover Photo"
+              accept=".jpeg, .jpg, .png"
+              onChange={handleUploadCoverPhoto}
+              required={true}
+            />
           </div>
           <TextField
             size="medium"
@@ -131,26 +119,12 @@ const AddScript: NextPage = () => {
             minRows={2}
             fullWidth
           />
-          <div className="mt-2 mb-5">
-            <label htmlFor="script">
-              <h1 className="font-bold text-gray-700 mb-3">Upload PDF</h1>
-            </label>
-            <input
-              type="file"
-              id="script"
-              className="block w-full text-sm text-slate-500
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-full file:border-0
-              file:text-sm file:font-semibold
-              file:bg-violet-50 file:text-violet-700
-              hover:file:bg-violet-100
-              "
-              hidden
-              accept=".pdf"
-              onChange={handleUpload}
-              required
-            />
-          </div>
+          <ChooseFileInput
+            title="Upload PDF"
+            accept=".pdf"
+            onChange={handleUpload}
+            required={true}
+          />
           <div className="flex items-center">
             <Button
               disabled={
