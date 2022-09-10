@@ -2,16 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../../components/Layout";
 import { useState } from "react";
-
-import {
-  Button,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
+import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { uploadScript } from "../../firebase/scripts";
 import { UploadIcon } from "@heroicons/react/outline";
 import PrivateRoute from "../../hoc/PrivateRoute";
@@ -23,6 +14,7 @@ import {
   checkImageFileTypeOrFail,
   checkPdfFileTypeOrFail,
 } from "../../utils/checkFileType";
+import CategoryDropDown from "../../components/CategoryDropDown";
 
 const AddScript: NextPage = () => {
   const router = useRouter();
@@ -124,26 +116,10 @@ const AddScript: NextPage = () => {
             onChange={(e) => setAuthor(e.target.value)}
             fullWidth
           />
-          <FormControl margin="dense">
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={category}
-              defaultValue="full-length-movies"
-              label="Category"
-              onChange={(e) => setCategory(e.target.value as string)}
-            >
-              <MenuItem value={"full-length-movies"}>
-                Full length Movies
-              </MenuItem>
-              <MenuItem value={"stage-plays"}>Stage Plays</MenuItem>
-              <MenuItem value={"musicals"}>Musicals</MenuItem>
-              <MenuItem value={"spoken-word"}>Spoken Word</MenuItem>
-              <MenuItem value={"short-films"}>Short Films</MenuItem>
-              <MenuItem value={"skits"}>Skits</MenuItem>
-            </Select>
-          </FormControl>
+          <CategoryDropDown
+            value={category}
+            onChange={(e) => setCategory(e.target.value as string)}
+          />
           <TextField
             size="small"
             variant="outlined"

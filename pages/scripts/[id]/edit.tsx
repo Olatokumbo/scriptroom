@@ -3,15 +3,7 @@ import Head from "next/head";
 import Layout from "../../../components/Layout";
 import { useEffect, useState } from "react";
 
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  CircularProgress,
-} from "@material-ui/core";
+import { Button, TextField, CircularProgress } from "@material-ui/core";
 import PrivateRoute from "../../../hoc/PrivateRoute";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
@@ -26,6 +18,7 @@ import { IScript } from "../../../interfaces/script.interface";
 import { PencilIcon } from "@heroicons/react/solid";
 import useDisplayPhoto from "../../../hooks/useDisplayPhoto";
 import { checkImageFileTypeOrFail } from "../../../utils/checkFileType";
+import CategoryDropDown from "../../../components/CategoryDropDown";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -151,26 +144,10 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
             onChange={(e) => setAuthor(e.target.value)}
             fullWidth
           />
-          <FormControl margin="dense">
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={category}
-              defaultValue="full-length-movies"
-              label="Category"
-              onChange={(e) => setCategory(e.target.value as string)}
-            >
-              <MenuItem value={"full-length-movies"}>
-                Full length Movies
-              </MenuItem>
-              <MenuItem value={"stage-plays"}>Stage Plays</MenuItem>
-              <MenuItem value={"musicals"}>Musicals</MenuItem>
-              <MenuItem value={"spoken-word"}>Spoken Word</MenuItem>
-              <MenuItem value={"short-films"}>Short Films</MenuItem>
-              <MenuItem value={"skits"}>Skits</MenuItem>
-            </Select>
-          </FormControl>
+          <CategoryDropDown
+            value={category}
+            onChange={(e) => setCategory(e.target.value as string)}
+          />
           <TextField
             size="small"
             variant="outlined"
