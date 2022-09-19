@@ -33,7 +33,7 @@ const Comments: React.FC<IComment> = ({ scriptId }) => {
 
   return (
     <div className="bg-neutral-100 my-2 rounded-md p-3">
-      <h1 className="font-semibold text-gray text-sm mb-3">Comments</h1>
+      <h1 className="font-semibold text-[#36395A] mb-3">Comments</h1>
       <div className="max-h-80 overflow-auto">
         {comments.map((comment) => (
           <CommentCard key={comment.id} comment={comment} />
@@ -52,7 +52,7 @@ const Comments: React.FC<IComment> = ({ scriptId }) => {
           />
           <button
             disabled={!comment}
-            className="disabled:bg-gray-500 disabled:border-gray-500 flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-md"
+            className="disabled:bg-gray-500 disabled:cursor-not-allowed disabled:border-gray-500 flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded-md"
             type="submit"
           >
             <PaperAirplaneIcon width={18} height={18} className="rotate-45" />

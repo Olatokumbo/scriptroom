@@ -67,23 +67,23 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
                 {script?.title}
               </h1>
               <div className="flex">
+                {uid === script.user.id && (
+                  <Link href={`/scripts/${id}/edit`} passHref>
+                    <div className=" group p-3 ml-0 xs:mr-2 rounded-full bg-gray-300 group-hover:bg-gray-400 hover:bg-gray-500  hover:cursor-pointer bg-opacity-60 transition ease-in-out">
+                      <PencilIcon
+                        width={25}
+                        height={25}
+                        className="text-slate-800 group-hover:text-white"
+                      ></PencilIcon>
+                    </div>
+                  </Link>
+                )}
                 <button
                   onClick={viewPdf}
                   className="items-center flex px-6 py-3 rounded-md bg-[#36395A]  hover:bg-slate-800 text-white text-sm font-normal uppercase focus:outline-none"
                 >
                   <EyeIcon width={20} height={20} className="mr-1" /> View
                 </button>
-                {uid === script.user.id && (
-                  <Link href={`/scripts/${id}/edit`} passHref>
-                    <div className="p-3 ml-0 xs:ml-2 rounded-md bg-gray-300 hover:bg-gray-400 hover:bg-opacity-90  hover:cursor-pointer bg-opacity-60 transition ease-in-out">
-                      <PencilIcon
-                        width={25}
-                        height={25}
-                        className="text-slate-800"
-                      ></PencilIcon>
-                    </div>
-                  </Link>
-                )}
               </div>
             </div>
             <div>
@@ -99,17 +99,17 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
             </div>
           </div>
           <div className="flex-1">
-            <div className="bg-neutral-100 mt-5 mb-2 rounded-md p-5 h-fit flex items-baseline">
+            <div className="bg-neutral-100 mt-5 mb-2 rounded-md p-3 h-fit flex items-baseline">
               <h1 className="font-semibold text-gray-600 mr-1">Author:</h1>
               <h1 className="font-semibold text-[#36395A]">{script.author}</h1>
             </div>
-            <div className="bg-neutral-100 rounded-md p-5 h-fit flex items-baseline">
+            <div className="bg-neutral-100 rounded-md p-3 h-fit flex items-baseline">
               <h1 className="font-semibold text-gray-600 mr-1">Category:</h1>
               <h1 className="font-semibold text-[#36395A]">
                 {getCategory(script.category)}
               </h1>
             </div>
-            <div className="bg-neutral-100 my-2 rounded-md p-5 h-fit">
+            <div className="bg-neutral-100 my-2 rounded-md p-3 h-fit">
               <h1 className="font-semibold text-[#36395A]">Posted By</h1>
               <Link href={`/profile/${script.user.id}`} passHref>
                 <div className="flex flex-col items-center my-2 hover:cursor-pointer">
