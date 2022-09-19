@@ -101,7 +101,7 @@ const Navbar = () => {
               ref={keywordRef}
               required
             />
-            <button className="px-3 rounded-full bg-[#36395A]  hover:bg-slate-800 text-gray-800 font-bold py-2 uppercase focus:outline-none">
+            <button className="p-[10px] rounded-full bg-[#36395A]  hover:bg-slate-800 text-gray-800 font-bold uppercase focus:outline-none">
               <SearchIcon className="h-4 w-4 text-white" />
             </button>
           </form>

@@ -113,13 +113,17 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
               <h1 className="font-semibold text-[#36395A]">Posted By</h1>
               <Link href={`/profile/${script.user.id}`} passHref>
                 <div className="flex flex-col items-center my-2 hover:cursor-pointer">
-                  <Image
-                    width={80}
-                    height={80}
-                    alt={script.user.displayName}
-                    src={script.user.photoURL}
-                    className="w-20 h-20 object-cover rounded-full"
-                  />
+                  <div className="bg-slate-300 p-2 rounded-full flex items-center">
+                    <Image
+                      width={80}
+                      height={80}
+                      layout="fixed"
+                      objectFit="cover"
+                      alt={script.user.displayName}
+                      src={script.user.photoURL}
+                      className="w-20 h-20 object-cover rounded-full"
+                    />
+                  </div>
                   <h1 className="font-medium">{script.user.displayName}</h1>
                 </div>
               </Link>
