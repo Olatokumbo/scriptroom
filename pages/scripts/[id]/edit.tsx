@@ -161,21 +161,21 @@ const EditScript: NextPage<IScriptInfo> = ({ script }) => {
           />
           <div className="flex justify-between items-center">
             <Button
+              disabled={loading}
+              onClick={remove}
+              variant="outlined" 
+              color="primary"
+            >
+              Delete
+            </Button>
+            {loading && <CircularProgress />}
+            <Button
               disabled={!(title && category && description) || loading}
               onClick={save}
               variant="contained"
               color="primary"
             >
               Update
-            </Button>
-            {loading && <CircularProgress />}
-            <Button
-              disabled={loading}
-              onClick={remove}
-              variant="contained"
-              color="secondary"
-            >
-              Delete
             </Button>
           </div>
         </div>
