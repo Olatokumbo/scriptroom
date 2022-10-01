@@ -16,7 +16,8 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../../store/user";
 import Image from "next/image";
 import getCategory from "../../../utils/getCategory";
-
+import firebase from "../../../firebase/config";
+import getStripe from "../../../utils/getStripe";
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
@@ -43,6 +44,29 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
     return <div>Loading...</div>;
   }
 
+  const checkout = async () => {
+    const stripe = await getStripe();
+    const createStripeCheckout = firebase
+      .functions()
+      .httpsCallable("createStripeCheckout");
+
+    const origin =
+      process.env.NODE_ENV === "production"
+        ? "https://scriptroom.vercel.app"
+        : "http://localhost:3000";
+
+    createStripeCheckout({
+      origin,
+      title: script.title,
+      price: 5,
+    }).then(async (response) => {
+      console.log(response);
+      const { error } = await stripe!.redirectToCheckout({
+        sessionId: response.data.id,
+      });
+    });
+  };
+
   return (
     <>
       <Head>
@@ -67,6 +91,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
                 {script?.title}
               </h1>
               <div className="flex">
+                <button onClick={checkout}>PAY UP</button>
                 {uid === script.user.id && (
                   <Link href={`/scripts/${id}/edit`} passHref>
                     <div className=" group p-3 ml-0 xs:mr-2 rounded-full bg-gray-300 group-hover:bg-gray-400 hover:bg-gray-500  hover:cursor-pointer bg-opacity-60 transition ease-in-out">

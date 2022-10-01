@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": false,
+    "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
     "outDir": "lib",
@@ -10,7 +11,5 @@
     "target": "es2017"
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
