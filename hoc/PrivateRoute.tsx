@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react/display-name */
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { userState } from "../store/user";
-// import Loading from "../sections/Loading";
+import Loading from "../components/Loading";
 
 // export type ProtectedRouteProps = {
 //     isAuthenticated: boolean;
@@ -10,7 +12,7 @@ import { userState } from "../store/user";
 //     outlet: JSX.Element;
 //   };
 
-const PrivateRoute = (WrappedComponent: any) => {
+const PrivateRoute = (WrappedComponent: FunctionComponent) => {
   return (props: any) => {
     if (typeof window !== "undefined") {
       const router = useRouter();
@@ -19,12 +21,12 @@ const PrivateRoute = (WrappedComponent: any) => {
         if (!auth && !loading) {
           router.replace("/");
         }
-      }, [auth, loading]);
+      }, [auth, loading, router]);
       if (auth && !loading) {
         return <WrappedComponent {...props} />;
       }
     }
-    return <h1>Loading</h1>;
+    return <Loading />;
   };
 };
 
