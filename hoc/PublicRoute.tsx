@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FunctionComponent, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { userState } from "../store/user";
-const PublicRoute = (WrappedComponent: FunctionComponent) => {
+const PublicRoute = (WrappedComponent: FunctionComponent<any>) => {
   return (props: any) => {
     if (typeof window !== "undefined") {
       const router = useRouter();

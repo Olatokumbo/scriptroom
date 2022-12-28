@@ -12,7 +12,7 @@ import Loading from "../components/Loading";
 //     outlet: JSX.Element;
 //   };
 
-const PrivateRoute = (WrappedComponent: FunctionComponent) => {
+const PrivateRoute = (WrappedComponent: FunctionComponent<any>) => {
   return (props: any) => {
     if (typeof window !== "undefined") {
       const router = useRouter();
