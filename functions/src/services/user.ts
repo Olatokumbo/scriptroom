@@ -18,6 +18,7 @@ export const newUser = functions.auth.user().onCreate((user) => {
         phoneNumber: user.phoneNumber,
         photoURL: user.photoURL,
         joined: admin.firestore.FieldValue.serverTimestamp(),
+        description: ""
       })
       .then(() => functions.logger.info("New User has been Added"))
       .catch((err) => Error(err.message));

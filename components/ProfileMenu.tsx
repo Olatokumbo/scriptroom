@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { ProfileMenuEnum } from "../utils/enum";
+import { ProfileMenuEnum } from "../utils/enums";
+import ProfileAbout from "./ProfileAbout";
 import ProfileScripts from "./ProfileScripts";
 
 interface IProfileMenu {
@@ -41,7 +42,7 @@ const ProfileMenu: React.FC<IProfileMenu> = ({ id, menu, setMenu }) => {
         {
           {
             SCRIPTS: <ProfileScripts id={id} />,
-            ABOUT: <h1>About Section</h1>,
+            ABOUT: <ProfileAbout id={id}/>,
             FOLLOWERS: <h1>Followers Section</h1>,
           }[menu]
         }

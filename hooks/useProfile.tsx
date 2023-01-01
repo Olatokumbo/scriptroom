@@ -26,7 +26,7 @@ const useProfile = (id: string) => {
     getData();
   }, [id]);
 
-  return { profile, notFound, loading };
+  return { profile, notFound, loading, setProfile };
 };
 
 export default useProfile;

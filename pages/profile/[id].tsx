@@ -11,7 +11,7 @@ import { updateCoverPhoto } from "../../firebase/user";
 import { useState } from "react";
 import { checkImageFileTypeOrFail } from "../../utils/checkFileType";
 import ProfileMenu from "../../components/ProfileMenu";
-import { ProfileMenuEnum } from "../../utils/enum";
+import { ProfileMenuEnum } from "../../utils/enums";
 
 const Profile: NextPage = () => {
   const {
@@ -19,7 +19,7 @@ const Profile: NextPage = () => {
     reload,
   } = useRouter();
 
-  const { profile, notFound } = useProfile(id as string);
+  const { profile } = useProfile(id as string);
   const [photoLoading, setPhotoLoading] = useState<boolean>(false);
   const [menu, setMenu] = useState<ProfileMenuEnum>(ProfileMenuEnum.SCRIPTS);
   const { uid } = useRecoilValue(userState);
