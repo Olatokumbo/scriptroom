@@ -8,22 +8,34 @@ import useProfile from "../../hooks/useProfile";
 import { userState } from "../../store/user";
 import { PencilIcon } from "@heroicons/react/solid";
 import { updateCoverPhoto } from "../../firebase/user";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { checkImageFileTypeOrFail } from "../../utils/checkFileType";
 import ProfileMenu from "../../components/ProfileMenu";
 import { ProfileMenuEnum } from "../../utils/enums";
 
 const Profile: NextPage = () => {
   const {
-    query: { id },
+    query: { id, sk },
     reload,
   } = useRouter();
 
+  const mode = (sk: string | undefined): ProfileMenuEnum => {
+    switch (sk) {
+      case "scripts":
+        return ProfileMenuEnum.SCRIPTS;
+      case "about":
+        return ProfileMenuEnum.ABOUT;
+      case "followers":
+        return ProfileMenuEnum.FOLLOWERS;
+      default:
+        return ProfileMenuEnum.SCRIPTS;
+    }
+  };
+
   const { profile } = useProfile(id as string);
   const [photoLoading, setPhotoLoading] = useState<boolean>(false);
-  const [menu, setMenu] = useState<ProfileMenuEnum>(ProfileMenuEnum.SCRIPTS);
+  const [menu, setMenu] = useState<ProfileMenuEnum>(mode(sk as string));
   const { uid } = useRecoilValue(userState);
-
   const handleUploadCoverPhoto = async (e: any) => {
     if (uid) {
       try {
@@ -37,6 +49,10 @@ const Profile: NextPage = () => {
       setPhotoLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (sk) setMenu(mode(sk as string));
+  }, [sk]);
 
   return (
     <>
@@ -117,7 +133,7 @@ const Profile: NextPage = () => {
               </div>
             </div>
             <div>
-              <ProfileMenu id={id as string} menu={menu} setMenu={setMenu} />
+              <ProfileMenu id={id as string} menu={menu}/>
             </div>
           </div>
         </div>

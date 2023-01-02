@@ -1,5 +1,5 @@
 export enum ProfileMenuEnum {
-  SCRIPTS = "SCRIPTS",
-  ABOUT = "ABOUT",
-  FOLLOWERS = "FOLLOWERS",
+  SCRIPTS = "scripts",
+  ABOUT = "about",
+  FOLLOWERS = "followers",
 }

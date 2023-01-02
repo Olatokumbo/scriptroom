@@ -26,7 +26,7 @@ const ProfileScripts: React.FC<IProfileScripts> = ({ id }) => {
           </Link>
         </div>
       )}
-      <h1 className="font-bold text-lg text-slate-600">MY SCRIPTS</h1>
+      <h1 className="font-semibold text-slate-500">My Scripts</h1>
       <div className="flex justify-center flex-col items-center  mx-0 my-2 sm:my-5">
         {loading ? (
           "Loading...."
