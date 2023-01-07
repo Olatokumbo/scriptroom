@@ -1,19 +1,20 @@
-// interface ICommentCard {
-//   comment: {
-//     text: string;
-//     scriptId: string;
-//     user: any;
-//     date: firebase.default.firestore.Timestamp;
-//   };
-
 import { TrashIcon } from "@heroicons/react/outline";
 import { useRecoilValue } from "recoil";
 import { removeComment } from "../firebase/comment";
 import { userState } from "../store/user";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { RefObject } from "react";
 
-const CommentCard: React.FC<any> = ({ comment }) => {
+interface ICommentCard {
+  comment: any;
+  isLast: boolean;
+  refProps: RefObject<HTMLDivElement>;
+}
+
+const CommentCard: React.FC<ICommentCard> = ({ comment, isLast, refProps }) => {
+  if (isLast)
+    refProps?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   const { uid } = useRecoilValue(userState);
   const owner = uid === comment.user.id;
   dayjs.extend(relativeTime);
@@ -23,7 +24,7 @@ const CommentCard: React.FC<any> = ({ comment }) => {
   };
 
   return (
-    <div className="flex p-2 rounded-md bg-white my-2">
+    <div ref={refProps} className="flex p-2 rounded-md bg-white my-2">
       <img
         // objectFit="cover"
         className="rounded-full h-8 w-8 m-1 object-cover"
@@ -35,7 +36,7 @@ const CommentCard: React.FC<any> = ({ comment }) => {
         <div className="flex items-center">
           <h1 className="font-semibold text-sm">{comment.user?.displayName}</h1>
           <h1 className="ml-1 text-xs font-thin  text-slate-500">
-          • {dayjs(comment.date?.toDate()).fromNow()}
+            • {dayjs(comment.date?.toDate()).fromNow()}
           </h1>
         </div>
         <h1 className="text-[0.7rem] text-gray-600 leading-3">

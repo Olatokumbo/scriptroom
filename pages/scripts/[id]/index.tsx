@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { createRef } from "react";
 import CategoryList from "../../../components/CategoryList";
 import Layout from "../../../components/Layout";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
@@ -16,8 +17,8 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../../store/user";
 import Image from "next/image";
 import getCategory from "../../../utils/getCategory";
-import firebase from "../../../firebase/config";
-import getStripe from "../../../utils/getStripe";
+// import firebase from "../../../firebase/config";
+// import getStripe from "../../../utils/getStripe";
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
@@ -43,7 +44,7 @@ const ScriptInfo: NextPage<IScriptInfo> = ({ script }) => {
   if (isFallback) {
     return <div>Loading...</div>;
   }
-
+  
   // const checkout = async () => {
   //   const stripe = await getStripe();
   //   const createStripeCheckout = firebase

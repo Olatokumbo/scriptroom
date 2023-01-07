@@ -1,5 +1,5 @@
 import { PaperAirplaneIcon } from "@heroicons/react/outline";
-import { useState } from "react";
+import { createRef, RefObject, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { createComment } from "../firebase/comment";
 import useFetchComments from "../hooks/useFetchComments";
@@ -14,6 +14,17 @@ const Comments: React.FC<IComment> = ({ scriptId }) => {
   const [comment, setComment] = useState<string>("");
   const { uid } = useRecoilValue(userState);
   const comments = useFetchComments(scriptId);
+  const [elRefs, setElRefs] = useState<RefObject<HTMLDivElement>[]>([]);
+
+  useEffect(() => {
+    // add or remove refs
+    setElRefs((elRefs) =>
+      Array(comments.length)
+        //@ts-ignore
+        .fill()
+        .map((_, i) => elRefs[i] || createRef())
+    );
+  }, [comments]);
 
   const addComment = async (e: any) => {
     e.preventDefault();
@@ -35,8 +46,13 @@ const Comments: React.FC<IComment> = ({ scriptId }) => {
     <div className="bg-neutral-100 my-2 rounded-md p-3">
       <h1 className="font-semibold text-[#36395A] mb-3">Comments</h1>
       <div className="max-h-80 overflow-auto">
-        {comments.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
+        {comments.map((comment, index) => (
+          <CommentCard
+            key={comment.id}
+            comment={comment}
+            refProps={elRefs[index]}
+            isLast={comments.length - 1 === index}
+          />
         ))}
       </div>
       <form className="w-full" onSubmit={addComment}>
