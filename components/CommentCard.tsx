@@ -5,6 +5,7 @@ import { userState } from "../store/user";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { RefObject } from "react";
+import { useEffect } from "react";
 
 interface ICommentCard {
   comment: any;
@@ -13,8 +14,10 @@ interface ICommentCard {
 }
 
 const CommentCard: React.FC<ICommentCard> = ({ comment, isLast, refProps }) => {
-  if (isLast)
-    refProps?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  useEffect(() => {
+    if (isLast)
+      refProps?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [isLast, refProps]);
   const { uid } = useRecoilValue(userState);
   const owner = uid === comment.user.id;
   dayjs.extend(relativeTime);
