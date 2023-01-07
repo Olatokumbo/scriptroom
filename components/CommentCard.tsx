@@ -10,16 +10,18 @@ import { TrashIcon } from "@heroicons/react/outline";
 import { useRecoilValue } from "recoil";
 import { removeComment } from "../firebase/comment";
 import { userState } from "../store/user";
-
-// import { format } from "date-fns";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 const CommentCard: React.FC<any> = ({ comment }) => {
   const { uid } = useRecoilValue(userState);
   const owner = uid === comment.user.id;
+  dayjs.extend(relativeTime);
 
   const deleteComment = async () => {
     removeComment(comment.id);
   };
+
   return (
     <div className="flex p-2 rounded-md bg-white my-2">
       <img
@@ -32,8 +34,8 @@ const CommentCard: React.FC<any> = ({ comment }) => {
       <div className="mx-2 flex-1">
         <div className="flex items-center">
           <h1 className="font-semibold text-sm">{comment.user?.displayName}</h1>
-          <h1 className="ml-3 text-xs font-medium  text-slate-500">
-            {/* {format(new Date(comment.date?.toDate()), "hh:mm:ss")} */}
+          <h1 className="ml-1 text-xs font-thin  text-slate-500">
+          • {dayjs(comment.date?.toDate()).fromNow()}
           </h1>
         </div>
         <h1 className="text-[0.7rem] text-gray-600 leading-3">

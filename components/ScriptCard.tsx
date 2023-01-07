@@ -3,7 +3,7 @@ import Link from "next/link";
 import { IScript } from "../interfaces/script.interface";
 import getCategory from "../utils/getCategory";
 import { truncate } from "../utils/helpers";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import { getCategoryColor } from "../utils/getCategoryColor";
 
 interface IScriptCard {
@@ -58,7 +58,8 @@ const ScriptCard: React.FC<IScriptCard> = ({ script, index }) => {
             )}
             <div>
               <h1 className="text-white text-xs text-right">
-                {script.id && format(new Date(script.date.toDate()), "MM/yyyy")}
+                {script.id &&
+                  dayjs(new Date(script.date.toDate())).format("MM/YYYY")}
               </h1>
               <h1 className="text-white text-xs font-mono text-right">
                 {getCategory(script.category)}

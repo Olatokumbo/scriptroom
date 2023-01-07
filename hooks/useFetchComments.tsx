@@ -10,7 +10,7 @@ const useFetchComments = (id?: string) => {
     const unsubscribe = db
       .collection("comments")
       .where("scriptId", "==", id)
-      .orderBy("date", "desc")
+      .orderBy("date", "asc")
       .onSnapshot(async (snap) => {
         const data = snap.docs.map((doc) => ({
           ...doc.data(),
