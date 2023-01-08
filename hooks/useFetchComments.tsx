@@ -4,8 +4,10 @@ import { firestore as db } from "../firebase/config";
 
 const useFetchComments = (id?: string) => {
   const [comments, setComments] = useState<firestore.DocumentData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true)
     if (!id) return;
     const unsubscribe = db
       .collection("comments")
@@ -26,13 +28,16 @@ const useFetchComments = (id?: string) => {
         });
         Promise.all(newData).then((data) => {
           setComments(data);
+          setLoading(false);
+        }).catch((err)=>{
+          setLoading(false);
         });
       });
 
     return () => unsubscribe();
   }, []);
 
-  return comments;
+  return {comments, loading};
 };
 
 export default useFetchComments;

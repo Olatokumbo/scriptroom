@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { RefObject } from "react";
 import { useEffect } from "react";
+import { isDesktop } from "react-device-detect";
 
 interface ICommentCard {
   comment: any;
@@ -15,8 +16,11 @@ interface ICommentCard {
 
 const CommentCard: React.FC<ICommentCard> = ({ comment, isLast, refProps }) => {
   useEffect(() => {
-    if (isLast)
-      refProps?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (isLast && isDesktop)
+      refProps?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
   }, [isLast, refProps]);
   const { uid } = useRecoilValue(userState);
   const owner = uid === comment.user.id;
@@ -36,10 +40,12 @@ const CommentCard: React.FC<ICommentCard> = ({ comment, isLast, refProps }) => {
         // height={40}
       />
       <div className="mx-2 flex-1">
-        <div className="flex items-center">
-          <h1 className="font-semibold text-sm">{comment.user?.displayName}</h1>
-          <h1 className="ml-1 text-xs font-thin  text-slate-500">
-            • {dayjs(comment.date?.toDate()).fromNow()}
+        <div className="flex flex-col mb-2">
+          <h1 className="font-semibold text-sm leading-none">
+            {comment.user?.displayName}
+          </h1>
+          <h1 className="text-xs font-thin  text-slate-500 leading-none">
+            {dayjs(comment.date?.toDate()).fromNow()}
           </h1>
         </div>
         <h1 className="text-[0.7rem] text-gray-600 leading-3">
