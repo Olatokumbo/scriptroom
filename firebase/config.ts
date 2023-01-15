@@ -17,7 +17,16 @@ export const firebaseConfig = {
 
 // Initialize Firebase
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+  const app = firebase.initializeApp(firebaseConfig);
+
+  // Enable Analytics
+  if (
+    process.env.NODE_ENV === "production" &&
+    typeof window !== "undefined" &&
+    app.name
+  ) {
+    firebase.analytics();
+  }
 }
 // Google Provider
 const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -33,11 +42,6 @@ const firestore = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
 const functions = firebase.functions();
-
-// Enable Analytics
-if (process.env.NODE_ENV === "production") {
-  firebase.analytics();
-}
 
 export {
   firebase as default,
