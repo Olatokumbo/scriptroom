@@ -1,4 +1,4 @@
-import { IScript } from "../interfaces/script.interface";
+import { IScript } from "../utils/interfaces/script.interface";
 import getCategory from "../utils/getCategory";
 import { truncate } from "../utils/helpers";
 import dayjs from "dayjs";

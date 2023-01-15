@@ -1,5 +1,8 @@
 import { googleProvider, auth } from "./config";
 
+/**
+ * Google signup 
+ */
 export const signinGoogle = () => {
   auth
     .signInWithPopup(googleProvider)
@@ -13,6 +16,9 @@ export const signinGoogle = () => {
     });
 };
 
+/**
+ * Signs out a users
+ */
 export const signout = () => {
   return auth
     .signOut()

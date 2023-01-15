@@ -2,6 +2,10 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { UserRecord } from "firebase-functions/v1/auth";
 
+/**
+ * Creates a new User object within firestore upon signup
+ * user User Object
+ */
 export const newUser = functions.auth.user().onCreate((user) => {
     return addUser(user);
   });

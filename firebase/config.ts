@@ -34,9 +34,10 @@ const storage = firebase.storage();
 const auth = firebase.auth();
 const functions = firebase.functions();
 
-// if (process.env.NODE_ENV === "production") {
-//   firebase.analytics();
-// }
+// Enable Analytics
+if (process.env.NODE_ENV === "production") {
+  firebase.analytics();
+}
 
 export {
   firebase as default,

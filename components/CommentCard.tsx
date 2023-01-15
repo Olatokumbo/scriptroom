@@ -12,11 +12,12 @@ interface ICommentCard {
   comment: any;
   isLast: boolean;
   refProps: RefObject<HTMLDivElement>;
+  loading: boolean
 }
 
-const CommentCard: React.FC<ICommentCard> = ({ comment, isLast, refProps }) => {
+const CommentCard: React.FC<ICommentCard> = ({ comment, isLast, refProps, loading }) => {
   useEffect(() => {
-    if (isLast && isDesktop)
+    if (isLast && isDesktop && !loading)
       refProps?.current?.scrollIntoView({
         behavior: "smooth",
         block: "nearest",

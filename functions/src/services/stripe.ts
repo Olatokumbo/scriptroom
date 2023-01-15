@@ -1,15 +1,14 @@
 import * as functions from "firebase-functions";
 import Stripe from "stripe";
 import { STRIPE_SECRET_KEY } from "../../config";
-// // import cors from "cors"
-// // cors({origin: true})
-// const cors = require('cors')
-// cors({origin: "http://localhost:3000"});
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
 
+/**
+ * Stripe Checkout
+ */
 export const createStripeCheckout = functions
   .region("us-central1")
   .https.onCall(async (data: any, context: functions.https.CallableContext) => {

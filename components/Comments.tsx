@@ -58,6 +58,7 @@ const Comments: React.FC<IComment> = ({ scriptId }) => {
             comments.map((comment, index) => (
               <CommentCard
                 key={comment.id}
+                loading={loading}
                 comment={comment}
                 refProps={elRefs[index]}
                 isLast={comments.length - 1 === index}

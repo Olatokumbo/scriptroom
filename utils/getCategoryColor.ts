@@ -1,25 +1,18 @@
-enum category_option {
-  full_length_movies = "full-length-movies",
-  stage_plays = "stage-plays",
-  musicals = "musicals",
-  spoken_word = "spoken-word",
-  short_films = "short-films",
-  skits = "skits",
-}
+import { CategoryEnum } from "./enums/category.enum";
 
-export const getCategoryColor = (category: string) => {
+export const getCategoryColor = (category: string): string => {
   switch (category) {
-    case category_option.full_length_movies:
+    case CategoryEnum.FULL_LENGTH_MOVIES:
       return "bg-amber-400";
-    case category_option.stage_plays:
+    case CategoryEnum.STAGE_PLAYS:
       return "bg-orange-600";
-    case category_option.musicals:
+    case CategoryEnum.MUSICALS:
       return "bg-blue-500";
-    case category_option.spoken_word:
+    case CategoryEnum.SPOKEN_WORD:
       return "bg-indigo-500";
-    case category_option.short_films:
+    case CategoryEnum.SHORT_FILMS:
       return "bg-gray-600";
-    case category_option.skits:
+    case CategoryEnum.SKITS:
       return "bg-cyan-600";
     default:
       return "bg-neutral-800";

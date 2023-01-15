@@ -6,7 +6,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { scriptById } from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
-import { IScript } from "../../../interfaces/script.interface";
+import { IScript } from "../../../utils/interfaces/script.interface";
 import { useRouter } from "next/router";
 import { EyeIcon } from "@heroicons/react/outline";
 import * as admin from "firebase-admin";

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ProfileMenuEnum } from "../utils/enums";
+import { ProfileMenuEnum } from "../utils/enums/profileMenu.enum";
 import ProfileAbout from "./ProfileAbout";
 import ProfileScripts from "./ProfileScripts";
 
@@ -11,7 +11,6 @@ const ProfileMenu: React.FC<IProfileMenu> = ({ id, menu }) => {
   const { push, query } = useRouter();
 
   const handleMenuChange = (option: ProfileMenuEnum) => {
-
     push({ query: { ...query, sk: option } }, undefined, {
       shallow: true,
     });

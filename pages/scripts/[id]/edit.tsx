@@ -14,7 +14,7 @@ import {
   updateScript,
 } from "../../../firebase/scripts";
 import { ParsedUrlQuery } from "querystring";
-import { IScript } from "../../../interfaces/script.interface";
+import { IScript } from "../../../utils/interfaces/script.interface";
 import { PencilIcon } from "@heroicons/react/solid";
 import useDisplayPhoto from "../../../hooks/useDisplayPhoto";
 import { checkImageFileTypeOrFail } from "../../../utils/checkFileType";

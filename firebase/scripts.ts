@@ -15,6 +15,10 @@ interface UpdateScript extends Omit<IScriptDetails, "file"> {
   posterURL?: string;
 }
 
+/**
+ * Gets scripts within a specific category
+ * @param category Category
+ */
 export const scriptsByCategory = async (category: string) => {
   try {
     const querySnapShot = await firestore

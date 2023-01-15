@@ -1,5 +1,11 @@
 import firebase, { firestore } from "./config";
 
+/**
+ * Creates a new Comment
+ * @param userId User ID
+ * @param scriptId Script ID
+ * @param comment Comment string
+ */
 export const createComment = async (
   userId: string,
   scriptId: string,
@@ -13,6 +19,11 @@ export const createComment = async (
   });
 };
 
+
+/**
+ * Finds all comments linked to a script document 
+ * @param id Script ID
+ */
 export const findCommentsByScriptId = async (id: string) => {
   try {
     const comments: firebase.firestore.DocumentData[] = [];
@@ -32,6 +43,10 @@ export const findCommentsByScriptId = async (id: string) => {
   }
 };
 
+/**
+ * Deletes a comment
+ * @param id Comment ID
+ */
 export const removeComment = async (id: string) => {
   try {
     return firestore.collection("comments").doc(id).delete();

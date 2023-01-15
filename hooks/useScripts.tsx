@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IScript } from "../interfaces/script.interface";
+import { IScript } from "../utils/interfaces/script.interface";
 
 const useScripts = (
   query: any,

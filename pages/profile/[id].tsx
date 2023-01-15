@@ -11,7 +11,7 @@ import { updateCoverPhoto } from "../../firebase/user";
 import { useEffect, useState } from "react";
 import { checkImageFileTypeOrFail } from "../../utils/checkFileType";
 import ProfileMenu from "../../components/ProfileMenu";
-import { ProfileMenuEnum } from "../../utils/enums";
+import { ProfileMenuEnum } from "../../utils/enums/profileMenu.enum";
 
 const Profile: NextPage = () => {
   const {
@@ -133,7 +133,7 @@ const Profile: NextPage = () => {
               </div>
             </div>
             <div>
-              <ProfileMenu id={id as string} menu={menu}/>
+              <ProfileMenu id={id as string} menu={menu} />
             </div>
           </div>
         </div>
